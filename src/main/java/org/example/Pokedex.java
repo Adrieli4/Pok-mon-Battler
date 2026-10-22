@@ -37,13 +37,13 @@ public class Pokedex {
                 }
                 else{
                     for (Pokemon pok : pokedex) {
-                        System.out.println("\nName: " + pok.name + " (" + pok.type + ")");
-                        System.out.println(" - Max HP: " + pok.maxHp);
-                        System.out.println(" - Current HP: " + pok.currentHp);
+                        System.out.println("\nName: " + pok.getName() + " (" + pok.getType() + ")");
+                        System.out.println(" - Max HP: " + pok.getMaxHp());
+                        System.out.println(" - Current HP: " + pok.getCurrentHp());
                         System.out.println(" - Attacks:");
-                        for (Attack att : pok.attacks) {
-                            System.out.println("  -  " + att.name + " (base damage: " + att.baseDamage
-                                    + ", accuracy: " + att.accuracy + ", type: " + att.type + ")");
+                        for (Attack att : pok.getAttacks()) {
+                            System.out.println("  -  " + att.getName() + " (base damage: " + att.getBaseDamage()
+                                    + ", accuracy: " + att.getAccuracy() + ", type: " + att.getType() + ")");
                         }
                         System.out.println();
                     }
@@ -85,7 +85,7 @@ public class Pokedex {
                     addAttack(scanner, pokemon);
                 }
 
-                System.out.println("\n" + pokemon.name + " has been added to pokedex.");
+                System.out.println("\n" + pokemon.getName() + " has been added to pokedex.");
                 pokedex.add(pokemon);
 
             }
@@ -98,10 +98,10 @@ public class Pokedex {
                 else{
                     System.out.println(" ");
                     for (int i= 0; i<pokedex.size(); i++){
-                        System.out.println(i + ". " + pokedex.get(i).name);
+                        System.out.println(i + ". " + pokedex.get(i).getName());
                     }
                     int number= readIntBetween(scanner, "\nEnter the number of the Pokemon you'd like to delete: ", 0, pokedex.size()-1);
-                    System.out.println("\nDeleting "+ pokedex.get(number).name);
+                    System.out.println("\nDeleting "+ pokedex.get(number).getName());
                     pokedex.remove(number);
 
                 }
@@ -121,12 +121,12 @@ public class Pokedex {
                 else{
                     System.out.println(" ");
                     for (int i=0; i< pokedex.size(); i++){
-                        System.out.println(i+ ". "+ pokedex.get(i).name);
+                        System.out.println(i+ ". "+ pokedex.get(i).getName());
                     }
                     int num= readIntBetween(scanner, "\nEnter the number of the Pokemon whose name you'd like to change: ", 0, pokedex.size()-1);
                     String newName=readString(scanner, "What would you like to call the Pokemon: ");
                     Pokemon selectedPokemon= pokedex.get(num);
-                    selectedPokemon.name=newName;
+                    selectedPokemon.setName(newName);
                     System.out.println("\nThe name has successfully been changed to " + newName);
                 }
 
@@ -139,16 +139,16 @@ public class Pokedex {
                 else{
                     System.out.println(" ");
                     for (int i=0; i< pokedex.size(); i++){
-                        System.out.println(i+ ". "+ pokedex.get(i).name+ " ("+ pokedex.get(i).type+ ")");
+                        System.out.println(i+ ". "+ pokedex.get(i).getName() + " ("+ pokedex.get(i).getType() + ")");
                     }
                     int num= readIntBetween(scanner, "\nEnter the number of the Pokemon to change its type: ", 0, pokedex.size()-1);
                     Type newType= readType(scanner, "What should the type be: ");
-                    Pokemon pokemon=new Pokemon(pokedex.get(num).name, newType, pokedex.get(num).maxHp, pokedex.get(num).currentHp);
-                    for (Attack attack : pokedex.get(num).attacks) {
-                        pokemon.attacks.add(new Attack(attack.name, attack.baseDamage, attack.accuracy, attack.type));
+                    Pokemon pokemon=new Pokemon(pokedex.get(num).getName(), newType, pokedex.get(num).getMaxHp(), pokedex.get(num).getCurrentHp());
+                    for (Attack attack : pokedex.get(num).getAttacks()) {
+                        pokemon.getAttacks().add(new Attack(attack.getName(), attack.getBaseDamage(), attack.getAccuracy(), attack.getType()));
                     }
                     pokedex.set(num, pokemon);
-                    System.out.println("\n" + pokemon.name + "'s type has successfully been changed to " + pokemon.type);
+                    System.out.println("\n" + pokemon.getName() + "'s type has successfully been changed to " + pokemon.getType());
                 }
             }
 
@@ -159,16 +159,16 @@ public class Pokedex {
                 else{
                     System.out.println(" ");
                     for (int i=0; i< pokedex.size(); i++){
-                        System.out.println(i+ ". "+ pokedex.get(i).name+ " ("+ pokedex.get(i).maxHp+ " HP)");
+                        System.out.println(i+ ". "+ pokedex.get(i).getName() + " ("+ pokedex.get(i).getMaxHp() + " HP)");
                     }
                     int num= readIntBetween(scanner, "\nEnter the number of the Pokemon to change its max HP: ", 0, pokedex.size()-1);
                     int newHp= readIntBetween(scanner, "What should the max HP be (1-255): ", 1, 255);
-                    Pokemon pokemon=new Pokemon(pokedex.get(num).name, pokedex.get(num).type, newHp, newHp);
-                    for (Attack attack : pokedex.get(num).attacks) {
-                        pokemon.attacks.add(new Attack(attack.name, attack.baseDamage, attack.accuracy, attack.type));
+                    Pokemon pokemon=new Pokemon(pokedex.get(num).getName(), pokedex.get(num).getType(), newHp, newHp);
+                    for (Attack attack : pokedex.get(num).getAttacks()) {
+                        pokemon.getAttacks().add(new Attack(attack.getName(), attack.getBaseDamage(), attack.getAccuracy(), attack.getType()));
                     }
                     pokedex.set(num, pokemon);
-                    System.out.println("\n" + pokemon.name + "'s HP has successfully been changed to " + pokemon.maxHp);
+                    System.out.println("\n" + pokemon.getName() + "'s HP has successfully been changed to " + pokemon.getMaxHp());
                 }
             }
 
@@ -193,19 +193,19 @@ public class Pokedex {
                 }
                 else {
                     for (int i=0; i< pokedex.size(); i++){
-                        System.out.println("\n" + i+ ". "+ pokedex.get(i).name + " has attack(s):");
-                        for (Attack attack : pokedex.get(i).attacks){
-                            System.out.println(attack.name);
+                        System.out.println("\n" + i+ ". "+ pokedex.get(i).getName() + " has attack(s):");
+                        for (Attack attack : pokedex.get(i).getAttacks()){
+                            System.out.println(attack.getName());
                         }
                     }
                     int num=readIntBetween(scanner, "\nEnter the number of a Pokemon to give it an extra attack: ", 0, pokedex.size()-1);
-                    if (pokedex.get(num).attacks.size()==4){
+                    if (pokedex.get(num).getAttacks().size()==4){
                         System.out.println(" ");
-                        System.out.println(pokedex.get(num).name + " already has 4 attacks.");
+                        System.out.println(pokedex.get(num).getName() + " already has 4 attacks.");
                     }
                     else{
                         addAttack(scanner, pokedex.get(num));
-                        System.out.println("\n" + pokedex.get(num).attacks.getLast().name + " has successfully been added.");
+                        System.out.println("\n" + pokedex.get(num).getAttacks().getLast().getName() + " has successfully been added.");
                     }
                 }
             }
@@ -216,24 +216,24 @@ public class Pokedex {
                 }
                 else {
                     for (int i=0; i< pokedex.size(); i++){
-                        System.out.println("\n" + i+ ". "+ pokedex.get(i).name + " has attack(s):");
-                        for (Attack attack : pokedex.get(i).attacks){
-                            System.out.println(attack.name);
+                        System.out.println("\n" + i+ ". "+ pokedex.get(i).getName() + " has attack(s):");
+                        for (Attack attack : pokedex.get(i).getAttacks()){
+                            System.out.println(attack.getName());
                         }
                     }
                     int num=readIntBetween(scanner, "\nEnter the number of a Pokemon to remove an attack: ", 0, pokedex.size()-1);
-                    if (pokedex.get(num).attacks.size()==1){
+                    if (pokedex.get(num).getAttacks().size()==1){
                         System.out.println(" ");
-                        System.out.println(pokedex.get(num).name + " only has 1 attack.");
+                        System.out.println(pokedex.get(num).getName() + " only has 1 attack.");
                     }
                     else{
                         System.out.println(" ");
-                        for (int i=0; i < pokedex.get(num).attacks.size(); i++){
-                            System.out.println(i+ ". "+ pokedex.get(num).attacks.get(i).name);
+                        for (int i = 0; i < pokedex.get(num).getAttacks().size(); i++){
+                            System.out.println(i+ ". "+ pokedex.get(num).getAttacks().get(i).getName());
                         }
-                        int removeAttack=readIntBetween(scanner, "\nEnter the number of the attack you'd like to remove: ", 0, pokedex.get(num).attacks.size()-1);
-                        System.out.println("\nRemoving " + pokedex.get(num).attacks.get(removeAttack).name + "...");
-                        pokedex.get(num).attacks.remove(removeAttack);
+                        int removeAttack=readIntBetween(scanner, "\nEnter the number of the attack you'd like to remove: ", 0, pokedex.get(num).getAttacks().size()-1);
+                        System.out.println("\nRemoving " + pokedex.get(num).getAttacks().get(removeAttack).getName() + "...");
+                        pokedex.get(num).getAttacks().remove(removeAttack);
                     }
                 }
             }
@@ -250,7 +250,7 @@ public class Pokedex {
         int baseDamage= readIntBetween(scanner, "Base damage (1-250): ", 1, 250);
         int accuracy= readIntBetween(scanner, "Accuracy (30-100): ",30 ,100);
         Type typeAttack=readType(scanner, "Enter the type of the attack (FIRE, WATER, GRASS, ELECTRIC, NORMAL): ");
-        pokemon.attacks.add(new Attack(nameAttack, baseDamage, accuracy, typeAttack));
+        pokemon.getAttacks().add(new Attack(nameAttack, baseDamage, accuracy, typeAttack));
     }
 
     public static Type readType(Scanner scanner, String prompt){
@@ -308,9 +308,9 @@ public class Pokedex {
         ArrayList<String> attackLines = new ArrayList<>();
 
         for (Pokemon pok: pokemon){
-            pokemonLines.add(pok.name+ ","+ pok.type+ ","+ pok.maxHp+ ","+ pok.currentHp);
-            for (Attack att : pok.attacks){
-                attackLines.add(att.name+ ","+ att.type+ ","+ att.baseDamage+ "," + att.accuracy+ ","+ pok.name);
+            pokemonLines.add(pok.getName() + ","+ pok.getType() + ","+ pok.getMaxHp() + ","+ pok.getCurrentHp());
+            for (Attack att : pok.getAttacks()){
+                attackLines.add(att.getName() + ","+ att.getType() + ","+ att.getBaseDamage() + "," + att.getAccuracy() + ","+ pok.getName());
             }
         }
 
@@ -356,8 +356,8 @@ public class Pokedex {
                 Attack att = new Attack(name, baseDamage, accuracy, type);
 
                 for (Pokemon pok : loadedPokemon){
-                    if (pok.name.equalsIgnoreCase(belongsToPokemon)){
-                        pok.attacks.add(att);
+                    if (pok.getName().equalsIgnoreCase(belongsToPokemon)){
+                        pok.getAttacks().add(att);
                         break;
                     }
                 }
@@ -374,23 +374,23 @@ public class Pokedex {
         pokedex.clear();
 
         Pokemon p1 = new Pokemon("Pikachu", Type.ELECTRIC, 100, 100);
-        p1.attacks.add(new Attack("Thunderbolt", 90, 100, Type.ELECTRIC));
-        p1.attacks.add(new Attack("Quick Attack", 40, 100, Type.NORMAL));
+        p1.getAttacks().add(new Attack("Thunderbolt", 90, 100, Type.ELECTRIC));
+        p1.getAttacks().add(new Attack("Quick Attack", 40, 100, Type.NORMAL));
 
         Pokemon p2 = new Pokemon("Charmander", Type.FIRE, 95, 95);
-        p2.attacks.add(new Attack("Ember", 40, 100, Type.FIRE));
+        p2.getAttacks().add(new Attack("Ember", 40, 100, Type.FIRE));
 
         Pokemon p3 = new Pokemon("Squirtle", Type.WATER, 105, 105);
-        p3.attacks.add(new Attack("Water Gun", 40, 100, Type.WATER));
+        p3.getAttacks().add(new Attack("Water Gun", 40, 100, Type.WATER));
 
         Pokemon p4 = new Pokemon("Bulbasaur", Type.GRASS, 100, 100);
-        p4.attacks.add(new Attack("Vine Whip", 45, 100, Type.GRASS));
+        p4.getAttacks().add(new Attack("Vine Whip", 45, 100, Type.GRASS));
 
         Pokemon p5 = new Pokemon("Eevee", Type.NORMAL, 110, 110);
-        p5.attacks.add(new Attack("Tackle", 40, 100, Type.NORMAL));
+        p5.getAttacks().add(new Attack("Tackle", 40, 100, Type.NORMAL));
 
         Pokemon p6 = new Pokemon("Snorlax", Type.NORMAL, 200, 200);
-        p6.attacks.add(new Attack("Body Slam", 85, 100, Type.NORMAL));
+        p6.getAttacks().add(new Attack("Body Slam", 85, 100, Type.NORMAL));
 
         pokedex.addAll(Arrays.asList(p1, p2, p3, p4, p5, p6));
     }
