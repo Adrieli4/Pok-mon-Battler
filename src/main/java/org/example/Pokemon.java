@@ -15,7 +15,12 @@ public class Pokemon{
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name == null || name.isBlank()){
+            System.out.println("You need to write a name");
+        }
+        else {
+            this.name = name;
+        }
     }
 
     public Type getType() {
@@ -31,7 +36,12 @@ public class Pokemon{
     }
 
     public void setMaxHp(int maxHp) {
-        this.maxHp = maxHp;
+        if (maxHp < 1 || maxHp > 255){
+            System.out.println("Max HP must be a number between 1 and 255");
+        }
+        else {
+            this.maxHp = maxHp;
+        }
     }
 
     public int getCurrentHp() {
@@ -39,7 +49,12 @@ public class Pokemon{
     }
 
     public void setCurrentHp(int currentHp) {
-        this.currentHp = currentHp;
+        if (currentHp < 0 || currentHp > maxHp){
+            System.out.println("Current HP cannot be less than zero or higher than Max HP");
+        }
+        else{
+            this.currentHp = currentHp;
+        }
     }
 
     public List<Attack> getAttacks() {

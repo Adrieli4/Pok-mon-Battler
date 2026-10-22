@@ -11,7 +11,12 @@ public class Attack{
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name == null || name.isBlank()){
+            System.out.println("You need to write a name");
+        }
+        else {
+            this.name = name;
+        }
     }
 
     public int getBaseDamage() {
@@ -19,7 +24,12 @@ public class Attack{
     }
 
     public void setBaseDamage(int baseDamage) {
-        this.baseDamage = baseDamage;
+        if (baseDamage < 1 || baseDamage > 250){
+            System.out.println("Base damage must be a number between 1 and 250");
+        }
+        else {
+            this.baseDamage = baseDamage;
+        }
     }
 
     public int getAccuracy() {
@@ -27,7 +37,12 @@ public class Attack{
     }
 
     public void setAccuracy(int accuracy) {
-        this.accuracy = accuracy;
+        if (accuracy < 30 || accuracy > 100){
+            System.out.println("Max HP must be a number between 30 and 100");
+        }
+        else {
+            this.accuracy = accuracy;
+        }
     }
 
     public Type getType() {
