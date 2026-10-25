@@ -371,6 +371,9 @@ public class Pokedex {
         catch (IOException e){
             System.err.println("Couldn't load files: " + e.getMessage());
         }
+        catch (Exception e){
+            System.out.println("Couldn't load files, they may have been corrupted.");
+        }
 
         return loadedPokemon;
     }
