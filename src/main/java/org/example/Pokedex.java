@@ -27,8 +27,8 @@ public class Pokedex {
         while (true) {
             System.out.println("\nPokedex");
             System.out.println("1) Show pokedex  2) Save to file and exit  3) Add Pokemon  4) Delete pokemon  5) Reset to seed data  " +
-                    "6) Edit name  7) Edit type  8) Edit HP  9) Save to file  10) Add attack  11) Remove attack");
-            int choice = readIntBetween(scanner, "Your choice: ", 1, 11);
+                    "6) Edit pokemon  7) Save to file");
+            int choice = readIntBetween(scanner, "Your choice: ", 1, 7);
 
             if (choice == 1) {
 
@@ -115,66 +115,124 @@ public class Pokedex {
             }
 
             if (choice==6){
-                if (pokedex.isEmpty()){
-                    System.out.println("\nThe pokedex is empty.");
-                }
-                else{
-                    System.out.println(" ");
-                    for (int i=0; i< pokedex.size(); i++){
-                        System.out.println(i+ ". "+ pokedex.get(i).getName());
+                System.out.println("\nChoose something to edit:");
+                System.out.println("1) Edit name  2) Edit type  3) Edit HP  4) Add attack  5) Remove attack");
+                int choiceEdit=readIntBetween(scanner, "Your choice: ", 1, 5);
+
+                if (choiceEdit==1){
+                    if (pokedex.isEmpty()){
+                        System.out.println("\nThe pokedex is empty.");
                     }
-                    int num= readIntBetween(scanner, "\nEnter the number of the Pokemon whose name you'd like to change: ", 0, pokedex.size()-1);
-                    String newName=readString(scanner, "What would you like to call the Pokemon: ");
-                    Pokemon selectedPokemon= pokedex.get(num);
-                    selectedPokemon.setName(newName);
-                    System.out.println("\nThe name has successfully been changed to " + newName);
+                    else{
+                        System.out.println(" ");
+                        for (int i=0; i< pokedex.size(); i++){
+                            System.out.println(i+ ". "+ pokedex.get(i).getName());
+                        }
+                        int num= readIntBetween(scanner, "\nEnter the number of the Pokemon whose name you'd like to change: ", 0, pokedex.size()-1);
+                        String newName=readString(scanner, "What would you like to call the Pokemon: ");
+                        Pokemon selectedPokemon= pokedex.get(num);
+                        selectedPokemon.setName(newName);
+                        System.out.println("\nThe name has successfully been changed to " + newName);
+                    }
+                }
+
+                if (choiceEdit==2){
+                    if (pokedex.isEmpty()){
+                        System.out.println("\nThe pokedex is empty.");
+                    }
+                    else{
+                        System.out.println(" ");
+                        for (int i=0; i< pokedex.size(); i++){
+                            System.out.println(i+ ". "+ pokedex.get(i).getName() + " ("+ pokedex.get(i).getType() + ")");
+                        }
+                        int num= readIntBetween(scanner, "\nEnter the number of the Pokemon to change its type: ", 0, pokedex.size()-1);
+                        Type newType= readType(scanner, "What should the type be: ");
+                        Pokemon pokemon=new Pokemon(pokedex.get(num).getName(), newType, pokedex.get(num).getMaxHp(), pokedex.get(num).getCurrentHp());
+                        for (Attack attack : pokedex.get(num).getAttacks()) {
+                            pokemon.getAttacks().add(new Attack(attack.getName(), attack.getBaseDamage(), attack.getAccuracy(), attack.getType()));
+                        }
+                        pokedex.set(num, pokemon);
+                        System.out.println("\n" + pokemon.getName() + "'s type has successfully been changed to " + pokemon.getType());
+                    }
+                }
+
+                if (choiceEdit==3){
+                    if (pokedex.isEmpty()){
+                        System.out.println("\nThe pokedex is empty.");
+                    }
+                    else{
+                        System.out.println(" ");
+                        for (int i=0; i< pokedex.size(); i++){
+                            System.out.println(i+ ". "+ pokedex.get(i).getName() + " ("+ pokedex.get(i).getMaxHp() + " HP)");
+                        }
+                        int num= readIntBetween(scanner, "\nEnter the number of the Pokemon to change its max HP: ", 0, pokedex.size()-1);
+                        int newHp= readIntBetween(scanner, "What should the max HP be (1-255): ", 1, 255);
+                        Pokemon pokemon=new Pokemon(pokedex.get(num).getName(), pokedex.get(num).getType(), newHp, newHp);
+                        for (Attack attack : pokedex.get(num).getAttacks()) {
+                            pokemon.getAttacks().add(new Attack(attack.getName(), attack.getBaseDamage(), attack.getAccuracy(), attack.getType()));
+                        }
+                        pokedex.set(num, pokemon);
+                        System.out.println("\n" + pokemon.getName() + "'s HP has successfully been changed to " + pokemon.getMaxHp());
+                    }
+                }
+
+                if (choiceEdit==4){
+                    if (pokedex.isEmpty()){
+                        System.out.println("\nThe pokedex is empty");
+                    }
+                    else {
+                        for (int i=0; i< pokedex.size(); i++){
+                            System.out.println("\n" + i+ ". "+ pokedex.get(i).getName() + " has attack(s):");
+                            for (Attack attack : pokedex.get(i).getAttacks()){
+                                System.out.println(attack.getName());
+                            }
+                        }
+                        int num=readIntBetween(scanner, "\nEnter the number of a Pokemon to give it an extra attack: ", 0, pokedex.size()-1);
+                        if (pokedex.get(num).getAttacks().size()==4){
+                            System.out.println(" ");
+                            System.out.println(pokedex.get(num).getName() + " already has 4 attacks.");
+                        }
+                        else{
+                            addAttack(scanner, pokedex.get(num));
+                            System.out.println("\n" + pokedex.get(num).getAttacks().getLast().getName() + " has successfully been added.");
+                        }
+                    }
+
+                }
+
+                if (choiceEdit==5){
+                    if (pokedex.isEmpty()){
+                        System.out.println("\nThe pokedex is empty");
+                    }
+                    else {
+                        for (int i=0; i< pokedex.size(); i++){
+                            System.out.println("\n" + i+ ". "+ pokedex.get(i).getName() + " has attack(s):");
+                            for (Attack attack : pokedex.get(i).getAttacks()){
+                                System.out.println(attack.getName());
+                            }
+                        }
+                        int num=readIntBetween(scanner, "\nEnter the number of a Pokemon to remove an attack: ", 0, pokedex.size()-1);
+                        if (pokedex.get(num).getAttacks().size()==1){
+                            System.out.println(" ");
+                            System.out.println(pokedex.get(num).getName() + " only has 1 attack.");
+                        }
+                        else{
+                            System.out.println(" ");
+                            for (int i = 0; i < pokedex.get(num).getAttacks().size(); i++){
+                                System.out.println(i+ ". "+ pokedex.get(num).getAttacks().get(i).getName());
+                            }
+                            int removeAttack=readIntBetween(scanner, "\nEnter the number of the attack you'd like to remove: ", 0, pokedex.get(num).getAttacks().size()-1);
+                            System.out.println("\nRemoving " + pokedex.get(num).getAttacks().get(removeAttack).getName() + "...");
+                            pokedex.get(num).getAttacks().remove(removeAttack);
+                        }
+                    }
                 }
 
             }
 
             if (choice==7){
                 if (pokedex.isEmpty()){
-                    System.out.println("\nThe pokedex is empty.");
-                }
-                else{
-                    System.out.println(" ");
-                    for (int i=0; i< pokedex.size(); i++){
-                        System.out.println(i+ ". "+ pokedex.get(i).getName() + " ("+ pokedex.get(i).getType() + ")");
-                    }
-                    int num= readIntBetween(scanner, "\nEnter the number of the Pokemon to change its type: ", 0, pokedex.size()-1);
-                    Type newType= readType(scanner, "What should the type be: ");
-                    Pokemon pokemon=new Pokemon(pokedex.get(num).getName(), newType, pokedex.get(num).getMaxHp(), pokedex.get(num).getCurrentHp());
-                    for (Attack attack : pokedex.get(num).getAttacks()) {
-                        pokemon.getAttacks().add(new Attack(attack.getName(), attack.getBaseDamage(), attack.getAccuracy(), attack.getType()));
-                    }
-                    pokedex.set(num, pokemon);
-                    System.out.println("\n" + pokemon.getName() + "'s type has successfully been changed to " + pokemon.getType());
-                }
-            }
-
-            if (choice==8){
-                if (pokedex.isEmpty()){
-                    System.out.println("\nThe pokedex is empty.");
-                }
-                else{
-                    System.out.println(" ");
-                    for (int i=0; i< pokedex.size(); i++){
-                        System.out.println(i+ ". "+ pokedex.get(i).getName() + " ("+ pokedex.get(i).getMaxHp() + " HP)");
-                    }
-                    int num= readIntBetween(scanner, "\nEnter the number of the Pokemon to change its max HP: ", 0, pokedex.size()-1);
-                    int newHp= readIntBetween(scanner, "What should the max HP be (1-255): ", 1, 255);
-                    Pokemon pokemon=new Pokemon(pokedex.get(num).getName(), pokedex.get(num).getType(), newHp, newHp);
-                    for (Attack attack : pokedex.get(num).getAttacks()) {
-                        pokemon.getAttacks().add(new Attack(attack.getName(), attack.getBaseDamage(), attack.getAccuracy(), attack.getType()));
-                    }
-                    pokedex.set(num, pokemon);
-                    System.out.println("\n" + pokemon.getName() + "'s HP has successfully been changed to " + pokemon.getMaxHp());
-                }
-            }
-
-            if (choice==9){
-                if (pokedex.isEmpty()){
-                    System.out.println("\nThe pokedex is empty");
+                    System.out.println("\nThe pokedex is empty. There is nothing to save.");
                 }
                 else {
                     Path pokemonPath=Path.of("saved-pokemon.txt");
@@ -186,59 +244,6 @@ public class Pokedex {
                 }
 
             }
-
-            if (choice==10){
-                if (pokedex.isEmpty()){
-                    System.out.println("\nThe pokedex is empty");
-                }
-                else {
-                    for (int i=0; i< pokedex.size(); i++){
-                        System.out.println("\n" + i+ ". "+ pokedex.get(i).getName() + " has attack(s):");
-                        for (Attack attack : pokedex.get(i).getAttacks()){
-                            System.out.println(attack.getName());
-                        }
-                    }
-                    int num=readIntBetween(scanner, "\nEnter the number of a Pokemon to give it an extra attack: ", 0, pokedex.size()-1);
-                    if (pokedex.get(num).getAttacks().size()==4){
-                        System.out.println(" ");
-                        System.out.println(pokedex.get(num).getName() + " already has 4 attacks.");
-                    }
-                    else{
-                        addAttack(scanner, pokedex.get(num));
-                        System.out.println("\n" + pokedex.get(num).getAttacks().getLast().getName() + " has successfully been added.");
-                    }
-                }
-            }
-
-            if (choice==11){
-                if (pokedex.isEmpty()){
-                    System.out.println("\nThe pokedex is empty");
-                }
-                else {
-                    for (int i=0; i< pokedex.size(); i++){
-                        System.out.println("\n" + i+ ". "+ pokedex.get(i).getName() + " has attack(s):");
-                        for (Attack attack : pokedex.get(i).getAttacks()){
-                            System.out.println(attack.getName());
-                        }
-                    }
-                    int num=readIntBetween(scanner, "\nEnter the number of a Pokemon to remove an attack: ", 0, pokedex.size()-1);
-                    if (pokedex.get(num).getAttacks().size()==1){
-                        System.out.println(" ");
-                        System.out.println(pokedex.get(num).getName() + " only has 1 attack.");
-                    }
-                    else{
-                        System.out.println(" ");
-                        for (int i = 0; i < pokedex.get(num).getAttacks().size(); i++){
-                            System.out.println(i+ ". "+ pokedex.get(num).getAttacks().get(i).getName());
-                        }
-                        int removeAttack=readIntBetween(scanner, "\nEnter the number of the attack you'd like to remove: ", 0, pokedex.get(num).getAttacks().size()-1);
-                        System.out.println("\nRemoving " + pokedex.get(num).getAttacks().get(removeAttack).getName() + "...");
-                        pokedex.get(num).getAttacks().remove(removeAttack);
-                    }
-                }
-            }
-
-
 
         }
 
