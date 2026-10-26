@@ -15,20 +15,14 @@ public class Pokedex {
 
         Scanner scanner = new Scanner(System.in);
         if (pokedex.isEmpty()){
-            Path pokemonPath=Path.of("saved-pokemon.txt");
-            Path attackPath=Path.of("saved-attacks.txt");
-            List<Pokemon> loadedPokemon=loadDataFromCSV(pokemonPath, attackPath);
-            pokedex= (ArrayList<Pokemon>) loadedPokemon;
-            if (pokedex.isEmpty()){
-                seedData();
-            }
+            seedData();
         }
 
         while (true) {
             System.out.println("\nPokedex");
             System.out.println("1) Show pokedex  2) Save to file and exit  3) Add Pokemon  4) Delete pokemon  5) Reset to seed data  " +
-                    "6) Edit pokemon  7) Save to file");
-            int choice = readIntBetween(scanner, "Your choice: ", 1, 7);
+                    "6) Edit pokemon  7) Save data to file  8) Load data from file");
+            int choice = readIntBetween(scanner, "Your choice: ", 1, 8);
 
             if (choice == 1) {
 
@@ -245,6 +239,20 @@ public class Pokedex {
 
             }
 
+            if (choice==8){
+                pokedex.clear();
+                Path pokemonPath=Path.of("saved-pokemon.txt");
+                Path attackPath=Path.of("saved-attacks.txt");
+                List<Pokemon> loadedPokemon=loadDataFromCSV(pokemonPath, attackPath);
+                pokedex= (ArrayList<Pokemon>) loadedPokemon;
+                if (pokedex.isEmpty()){
+                    System.out.println("\nThere is no saved data. The pokedex is empty.");
+                }
+                else{
+                    System.out.println("\nThe data has successfully been loaded.");
+                }
+            }
+
         }
 
         scanner.close();
@@ -372,7 +380,7 @@ public class Pokedex {
             System.err.println("Couldn't load files: " + e.getMessage());
         }
         catch (Exception e){
-            System.out.println("Couldn't load files, they may have been corrupted.");
+            System.out.println("\nCouldn't load files, they may have been corrupted.");
         }
 
         return loadedPokemon;
