@@ -36,8 +36,11 @@ public class Pokemon{
     }
 
     public void setMaxHp(int maxHp) {
-        if (maxHp < 1 || maxHp > 255){
-            System.out.println("Max HP must be a number between 1 and 255");
+        if (maxHp < 1){
+            maxHp = 1;
+        }
+        else if (maxHp > 255){
+            maxHp = 255;
         }
         else {
             this.maxHp = maxHp;
@@ -49,8 +52,11 @@ public class Pokemon{
     }
 
     public void setCurrentHp(int currentHp) {
-        if (currentHp < 0 || currentHp > maxHp){
-            System.out.println("Current HP cannot be less than zero or higher than Max HP");
+        if (currentHp < 0){
+            currentHp = 0;
+        }
+        else if (currentHp > maxHp){
+            currentHp = maxHp;
         }
         else{
             this.currentHp = currentHp;

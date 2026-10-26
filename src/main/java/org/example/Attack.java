@@ -24,8 +24,11 @@ public class Attack{
     }
 
     public void setBaseDamage(int baseDamage) {
-        if (baseDamage < 1 || baseDamage > 250){
-            System.out.println("Base damage must be a number between 1 and 250");
+        if (baseDamage < 1){
+            baseDamage = 1;
+        }
+        else if (baseDamage > 250){
+            baseDamage = 250;
         }
         else {
             this.baseDamage = baseDamage;
@@ -37,8 +40,11 @@ public class Attack{
     }
 
     public void setAccuracy(int accuracy) {
-        if (accuracy < 30 || accuracy > 100){
-            System.out.println("Max HP must be a number between 30 and 100");
+        if (accuracy < 30){
+            accuracy = 30;
+        }
+        else if (accuracy > 100){
+            accuracy = 100;
         }
         else {
             this.accuracy = accuracy;
