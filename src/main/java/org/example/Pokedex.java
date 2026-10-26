@@ -20,29 +20,71 @@ public class Pokedex {
 
         while (true) {
             System.out.println("\nPokedex");
-            System.out.println("1) Show pokedex  2) Save to file and exit  3) Add Pokemon  4) Delete pokemon  5) Reset to seed data  " +
-                    "6) Edit pokemon  7) Save data to file  8) Load data from file");
-            int choice = readIntBetween(scanner, "Your choice: ", 1, 8);
+            System.out.println("1) Pokedex options  2) Save to file and exit  3) Edit Pokemon  4) Save data to file  5) Load data from file");
+            int choice = readIntBetween(scanner, "Your choice: ", 1, 5);
 
             if (choice == 1) {
+                System.out.println("\nYour options:");
+                System.out.println("1) Show pokedex  2) Add Pokemon  3) Delete pokemon  4) Reset to seed data");
+                int choiceEditPokedex=readIntBetween(scanner, "Your choice: ", 1, 4);
 
-                if (pokedex.isEmpty()){
-                    System.out.println("\nThe pokedex is empty.");
-                }
-                else{
-                    for (Pokemon pok : pokedex) {
-                        System.out.println("\nName: " + pok.getName() + " (" + pok.getType() + ")");
-                        System.out.println(" - Max HP: " + pok.getMaxHp());
-                        System.out.println(" - Current HP: " + pok.getCurrentHp());
-                        System.out.println(" - Attacks:");
-                        for (Attack att : pok.getAttacks()) {
-                            System.out.println("  -  " + att.getName() + " (base damage: " + att.getBaseDamage()
-                                    + ", accuracy: " + att.getAccuracy() + ", type: " + att.getType() + ")");
+                if (choiceEditPokedex==1){
+                    if (pokedex.isEmpty()){
+                        System.out.println("\nThe pokedex is empty.");
+                    }
+                    else{
+                        for (Pokemon pok : pokedex) {
+                            System.out.println("\nName: " + pok.getName() + " (" + pok.getType() + ")");
+                            System.out.println(" - Max HP: " + pok.getMaxHp());
+                            System.out.println(" - Current HP: " + pok.getCurrentHp());
+                            System.out.println(" - Attacks:");
+                            for (Attack att : pok.getAttacks()) {
+                                System.out.println("  -  " + att.getName() + " (base damage: " + att.getBaseDamage()
+                                        + ", accuracy: " + att.getAccuracy() + ", type: " + att.getType() + ")");
+                            }
+                            System.out.println();
                         }
-                        System.out.println();
                     }
                 }
 
+                if (choiceEditPokedex==2){
+                    String name = readString(scanner, "\nEnter Pokemon name: ");
+
+                    Type type = readType(scanner, "Enter type (FIRE, WATER, GRASS, ELECTRIC, NORMAL): ");
+
+                    int maxHp = readIntBetween(scanner, "Enter Max HP (1-255): ", 1, 255);
+                    Pokemon pokemon=new Pokemon(name, type, maxHp, maxHp);
+
+                    int numOfAttacks= readIntBetween(scanner, "Enter the number of attacks the Pokemon has (1-4): ", 1, 4);
+
+                    for (int i =1; i<=numOfAttacks; i++){
+                        addAttack(scanner, pokemon);
+                    }
+
+                    System.out.println("\n" + pokemon.getName() + " has been added to pokedex.");
+                    pokedex.add(pokemon);
+                }
+
+                if (choiceEditPokedex==3){
+                    if (pokedex.isEmpty()){
+                        System.out.println("\nThe pokedex is empty.");
+                    }
+                    else{
+                        System.out.println(" ");
+                        for (int i= 0; i<pokedex.size(); i++){
+                            System.out.println(i + ". " + pokedex.get(i).getName());
+                        }
+                        int number= readIntBetween(scanner, "\nEnter the number of the Pokemon you'd like to delete: ", 0, pokedex.size()-1);
+                        System.out.println("\nDeleting "+ pokedex.get(number).getName());
+                        pokedex.remove(number);
+
+                    }
+                }
+
+                if (choiceEditPokedex==4){
+                    System.out.println("\nResetting the pokedex");
+                    seedData();
+                }
 
             }
 
@@ -65,55 +107,12 @@ public class Pokedex {
                 }
             }
 
-            if (choice == 3) {
-                String name = readString(scanner, "\nEnter Pokemon name: ");
-
-                Type type = readType(scanner, "Enter type (FIRE, WATER, GRASS, ELECTRIC, NORMAL): ");
-
-                int maxHp = readIntBetween(scanner, "Enter Max HP (1-255): ", 1, 255);
-                Pokemon pokemon=new Pokemon(name, type, maxHp, maxHp);
-
-                int numOfAttacks= readIntBetween(scanner, "Enter the number of attacks the Pokemon has (1-4): ", 1, 4);
-
-                for (int i =1; i<=numOfAttacks; i++){
-                    addAttack(scanner, pokemon);
-                }
-
-                System.out.println("\n" + pokemon.getName() + " has been added to pokedex.");
-                pokedex.add(pokemon);
-
-            }
-
-            if (choice==4) {
-
-                if (pokedex.isEmpty()){
-                    System.out.println("\nThe pokedex is empty.");
-                }
-                else{
-                    System.out.println(" ");
-                    for (int i= 0; i<pokedex.size(); i++){
-                        System.out.println(i + ". " + pokedex.get(i).getName());
-                    }
-                    int number= readIntBetween(scanner, "\nEnter the number of the Pokemon you'd like to delete: ", 0, pokedex.size()-1);
-                    System.out.println("\nDeleting "+ pokedex.get(number).getName());
-                    pokedex.remove(number);
-
-                }
-
-
-            }
-
-            if (choice==5){
-                System.out.println("\nResetting the pokedex");
-                seedData();
-            }
-
-            if (choice==6){
+            if (choice==3){
                 System.out.println("\nChoose something to edit:");
                 System.out.println("1) Edit name  2) Edit type  3) Edit HP  4) Add attack  5) Remove attack");
-                int choiceEdit=readIntBetween(scanner, "Your choice: ", 1, 5);
+                int choiceEditPokemon=readIntBetween(scanner, "Your choice: ", 1, 5);
 
-                if (choiceEdit==1){
+                if (choiceEditPokemon==1){
                     if (pokedex.isEmpty()){
                         System.out.println("\nThe pokedex is empty.");
                     }
@@ -130,7 +129,7 @@ public class Pokedex {
                     }
                 }
 
-                if (choiceEdit==2){
+                if (choiceEditPokemon==2){
                     if (pokedex.isEmpty()){
                         System.out.println("\nThe pokedex is empty.");
                     }
@@ -150,7 +149,7 @@ public class Pokedex {
                     }
                 }
 
-                if (choiceEdit==3){
+                if (choiceEditPokemon==3){
                     if (pokedex.isEmpty()){
                         System.out.println("\nThe pokedex is empty.");
                     }
@@ -170,7 +169,7 @@ public class Pokedex {
                     }
                 }
 
-                if (choiceEdit==4){
+                if (choiceEditPokemon==4){
                     if (pokedex.isEmpty()){
                         System.out.println("\nThe pokedex is empty");
                     }
@@ -194,7 +193,7 @@ public class Pokedex {
 
                 }
 
-                if (choiceEdit==5){
+                if (choiceEditPokemon==5){
                     if (pokedex.isEmpty()){
                         System.out.println("\nThe pokedex is empty");
                     }
@@ -224,7 +223,7 @@ public class Pokedex {
 
             }
 
-            if (choice==7){
+            if (choice==4){
                 if (pokedex.isEmpty()){
                     System.out.println("\nThe pokedex is empty. There is nothing to save.");
                 }
@@ -239,7 +238,7 @@ public class Pokedex {
 
             }
 
-            if (choice==8){
+            if (choice==5){
                 pokedex.clear();
                 Path pokemonPath=Path.of("saved-pokemon.txt");
                 Path attackPath=Path.of("saved-attacks.txt");
