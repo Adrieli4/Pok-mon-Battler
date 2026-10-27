@@ -245,7 +245,7 @@ public class Pokedex {
                 List<Pokemon> loadedPokemon=loadDataFromCSV(pokemonPath, attackPath);
                 pokedex= (ArrayList<Pokemon>) loadedPokemon;
                 if (pokedex.isEmpty()){
-                    System.out.println("\nThere is no saved data. The pokedex is empty.");
+                    System.out.println("\nCouldn't load data. The pokedex is empty.");
                 }
                 else{
                     System.out.println("\nThe data has successfully been loaded.");
@@ -374,6 +374,10 @@ public class Pokedex {
                     }
                 }
             }
+
+            loadedPokemon.removeIf(pokemon -> pokemon.getName() == null || pokemon.getName().isBlank() ||
+                    pokemon.getMaxHp() < 1 || pokemon.getMaxHp() > 255 || pokemon.getCurrentHp() < 0 ||
+                    pokemon.getCurrentHp() > pokemon.getMaxHp());
         }
         catch (IOException e){
             System.err.println("Couldn't load files: " + e.getMessage());
