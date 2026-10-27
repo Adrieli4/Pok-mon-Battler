@@ -245,7 +245,7 @@ public class Pokedex {
                 List<Pokemon> loadedPokemon=loadDataFromCSV(pokemonPath, attackPath);
                 pokedex= (ArrayList<Pokemon>) loadedPokemon;
                 if (pokedex.isEmpty()){
-                    System.out.println("\nCouldn't load data. The pokedex is empty.");
+                    System.out.println("\nNo data has been loaded. The pokedex is empty.");
                 }
                 else{
                     System.out.println("\nThe data has successfully been loaded.");
@@ -379,12 +379,21 @@ public class Pokedex {
                     pokemon.getMaxHp() < 1 || pokemon.getMaxHp() > 255 || pokemon.getCurrentHp() < 0 ||
                     pokemon.getCurrentHp() > pokemon.getMaxHp() || pokemon.getAttacks().isEmpty() ||
                     pokemon.getAttacks().size() > 4);
+
+            for (Pokemon pokemon : loadedPokemon){
+                for (Attack attack : pokemon.getAttacks()){
+                    if (attack.getName()==null || attack.getName().isBlank() || attack.getBaseDamage() < 1 ||
+                            attack.getBaseDamage() > 250 || attack.getAccuracy() < 30 || attack.getAccuracy() > 100){
+                        loadedPokemon.remove(pokemon);
+                    }
+                }
+            }
         }
         catch (IOException e){
             System.err.println("Couldn't load files: " + e.getMessage());
         }
         catch (Exception e){
-            System.out.println("\nCouldn't load files, they may have been corrupted.");
+            System.out.println("\nSomething went wrong when loading the files.");
         }
 
         return loadedPokemon;
