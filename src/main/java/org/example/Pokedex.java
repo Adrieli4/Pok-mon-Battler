@@ -377,7 +377,8 @@ public class Pokedex {
 
             loadedPokemon.removeIf(pokemon -> pokemon.getName() == null || pokemon.getName().isBlank() ||
                     pokemon.getMaxHp() < 1 || pokemon.getMaxHp() > 255 || pokemon.getCurrentHp() < 0 ||
-                    pokemon.getCurrentHp() > pokemon.getMaxHp());
+                    pokemon.getCurrentHp() > pokemon.getMaxHp() || pokemon.getAttacks().isEmpty() ||
+                    pokemon.getAttacks().size() > 4);
         }
         catch (IOException e){
             System.err.println("Couldn't load files: " + e.getMessage());
