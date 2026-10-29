@@ -5,9 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-enum Type {
-    FIRE, WATER, GRASS, ELECTRIC, NORMAL
-}
 public class Pokedex {
     private static ArrayList<Pokemon> pokedex = new ArrayList<>();
 
@@ -139,7 +136,7 @@ public class Pokedex {
                             System.out.println(i+ ". "+ pokedex.get(i).getName() + " ("+ pokedex.get(i).getType() + ")");
                         }
                         int num= readIntBetween(scanner, "\nEnter the number of the Pokemon to change its type: ", 0, pokedex.size()-1);
-                        Type newType= readType(scanner, "What should the type be: ");
+                        Type newType= readType(scanner, "What should the type be (FIRE, WATER, GRASS, ELECTRIC, NORMAL): ");
                         Pokemon pokemon=new Pokemon(pokedex.get(num).getName(), newType, pokedex.get(num).getMaxHp(), pokedex.get(num).getCurrentHp());
                         for (Attack attack : pokedex.get(num).getAttacks()) {
                             pokemon.getAttacks().add(new Attack(attack.getName(), attack.getBaseDamage(), attack.getAccuracy(), attack.getType()));
