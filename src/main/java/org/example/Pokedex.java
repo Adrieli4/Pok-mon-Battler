@@ -120,8 +120,11 @@ public class Pokedex {
                         }
                         int num= readIntBetween(scanner, "\nEnter the number of the Pokemon whose name you'd like to change: ", 0, pokedex.size()-1);
                         String newName=readString(scanner, "What would you like to call the Pokemon: ");
-                        Pokemon selectedPokemon= pokedex.get(num);
-                        selectedPokemon.setName(newName);
+                        Pokemon pokemon=new Pokemon(newName, pokedex.get(num).getType(), pokedex.get(num).getMaxHp(), pokedex.get(num).getCurrentHp());
+                        for (Attack attack : pokedex.get(num).getAttacks()) {
+                            pokemon.getAttacks().add(new Attack(attack.getName(), attack.getBaseDamage(), attack.getAccuracy(), attack.getType()));
+                        }
+                        pokedex.set(num, pokemon);
                         System.out.println("\nThe name has successfully been changed to " + newName);
                     }
                 }
