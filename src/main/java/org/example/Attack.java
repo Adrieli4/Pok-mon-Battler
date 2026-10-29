@@ -1,68 +1,44 @@
 package org.example;
 
 public class Attack{
-    private String name;
-    private int baseDamage;
-    private int accuracy;
-    private Type type;
+    private final String name;
+    private final int baseDamage;
+    private final int accuracy;
+    private final Type type;
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        if (name == null || name.isBlank()){
-            System.out.println("You need to write a name");
-        }
-        else {
-            this.name = name;
-        }
     }
 
     public int getBaseDamage() {
         return baseDamage;
     }
 
-    public void setBaseDamage(int baseDamage) {
-        if (baseDamage < 1){
-            baseDamage = 1;
-        }
-        else if (baseDamage > 250){
-            baseDamage = 250;
-        }
-        else {
-            this.baseDamage = baseDamage;
-        }
-    }
-
     public int getAccuracy() {
         return accuracy;
-    }
-
-    public void setAccuracy(int accuracy) {
-        if (accuracy < 30){
-            accuracy = 30;
-        }
-        else if (accuracy > 100){
-            accuracy = 100;
-        }
-        else {
-            this.accuracy = accuracy;
-        }
     }
 
     public Type getType() {
         return type;
     }
 
-    public void setType(Type type) {
-        this.type = type;
-    }
-
     public Attack(String name, int baseDamage, int accuracy, Type type) {
+        if (name == null || name.isBlank()){
+            throw new IllegalArgumentException("You need to write a name.");
+        }
+        if (baseDamage < 1 || baseDamage > 250){
+            throw new IllegalArgumentException("Base damage must be between 1-250.");
+        }
+        if (accuracy < 30 || accuracy > 100){
+            throw new IllegalArgumentException("Accuracy must be between 30-100.");
+        }
         this.name = name;
         this.baseDamage = baseDamage;
         this.accuracy = accuracy;
         this.type = type;
+    }
+
+    public void pokUseAtt(Pokemon attacker, Pokemon defender){
+        System.out.println(attacker.getName() + " chooses: " + name);
     }
 }
