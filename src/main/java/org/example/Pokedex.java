@@ -4,15 +4,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.Random;
 
 public class Pokedex {
     private static ArrayList<Pokemon> pokedex = new ArrayList<>();
+    private static final ArrayList<Pokemon> pokedexComputer = new ArrayList<>();
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         if (pokedex.isEmpty()){
             seedData();
+        }
+
+        if (pokedexComputer.isEmpty()){
+            seedDataComputer();
         }
 
         while (true) {
@@ -209,6 +215,9 @@ public class Pokedex {
                 pokedexNameChoice();
                 int choicePokemon=readIntBetween(scanner, "\nYour choice: ", 0, pokedex.size()-1);
                 System.out.println("\nYou have chosen " + pokedex.get(choicePokemon).getName());
+                Random random = new Random();
+                int choiceComputer = random.nextInt(0, pokedexComputer.size());
+                System.out.println("\nThe computer has chosen " + pokedexComputer.get(choiceComputer).getName());
             }
 
         }
@@ -404,5 +413,34 @@ public class Pokedex {
         pokedex.addAll(Arrays.asList(p1, p2, p3, p4, p5, p6));
     }
 
+    private static void seedDataComputer() {
+        pokedexComputer.clear();
+
+        Pokemon p1 = new Pokemon("Pidgey", Type.NORMAL, 40, 40);
+        p1.getAttacks().add(new Attack("Headbutt", 70, 100, Type.NORMAL));
+        p1.getAttacks().add(new Attack("Heat Wave", 95, 90, Type.FIRE));
+
+        Pokemon p2 = new Pokemon("Jigglypuff", Type.NORMAL, 115, 115);
+        p2.getAttacks().add(new Attack("Tackle", 40, 100, Type.NORMAL));
+
+        Pokemon p3 = new Pokemon("Vulpix", Type.FIRE, 38, 38);
+        p3.getAttacks().add(new Attack("Inferno", 100, 50, Type.FIRE));
+        p3.getAttacks().add(new Attack("Fire Blast", 110, 85, Type.FIRE));
+
+        Pokemon p4 = new Pokemon("Raticate", Type.NORMAL, 55, 55);
+        p4.getAttacks().add(new Attack("Double-Edge", 120, 100, Type.NORMAL));
+
+        Pokemon p5 = new Pokemon("Gloom", Type.GRASS, 60, 60);
+        p5.getAttacks().add(new Attack("Mega Drain", 40, 100, Type.GRASS));
+        p5.getAttacks().add(new Attack("Giga Drain", 75, 100, Type.GRASS));
+
+        Pokemon p6 = new Pokemon("Psyduck", Type.WATER, 50, 50);
+        p6.getAttacks().add(new Attack("Aqua Tail", 90, 90, Type.WATER));
+
+        Pokemon p7 = new Pokemon("Persian", Type.NORMAL, 65, 65);
+        p7.getAttacks().add(new Attack("Slash", 70, 100, Type.NORMAL));
+
+        pokedexComputer.addAll(Arrays.asList(p1, p2, p3, p4, p5, p6));
+    }
 
 }
