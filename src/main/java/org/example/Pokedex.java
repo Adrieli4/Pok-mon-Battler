@@ -440,7 +440,7 @@ public class Pokedex {
         Pokemon p7 = new Pokemon("Persian", Type.NORMAL, 65, 65);
         p7.getAttacks().add(new Attack("Slash", 70, 100, Type.NORMAL));
 
-        pokedexComputer.addAll(Arrays.asList(p1, p2, p3, p4, p5, p6));
+        pokedexComputer.addAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7));
     }
 
 }
