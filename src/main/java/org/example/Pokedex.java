@@ -214,10 +214,16 @@ public class Pokedex {
                 System.out.println("To choose a Pokemon, enter the corresponding number:");
                 pokedexNameChoice();
                 int choicePokemon=readIntBetween(scanner, "\nYour choice: ", 0, pokedex.size()-1);
-                System.out.println("\nYou have chosen " + pokedex.get(choicePokemon).getName());
+                System.out.println("\nAttacks:");
+                for (int i=0;i<pokedex.get(choicePokemon).getAttacks().size();i++){
+                    System.out.println(i + ". " + pokedex.get(choicePokemon).getAttacks().get(i).getName());
+                }
+                int choicePokemonAtt=readIntBetween(scanner, "\nChoose attack: ", 0, pokedex.get(choicePokemon).getAttacks().size()-1);
+                System.out.println("\nYou have chosen " + pokedex.get(choicePokemon).getName() + " (" + pokedex.get(choicePokemon).getAttacks().get(choicePokemonAtt).getName() + ")");
                 Random random = new Random();
                 int choiceComputer = random.nextInt(0, pokedexComputer.size());
-                System.out.println("\nThe computer has chosen " + pokedexComputer.get(choiceComputer).getName());
+                int choiceComputerAtt = random.nextInt(0, pokedexComputer.get(choiceComputer).getAttacks().size());
+                System.out.println("\nThe computer has chosen " + pokedexComputer.get(choiceComputer).getName() + " (" + pokedexComputer.get(choiceComputer).getAttacks().get(choiceComputerAtt).getName() + ")");
             }
 
         }
