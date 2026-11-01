@@ -224,6 +224,12 @@ public class Pokedex {
                 int choiceComputer = random.nextInt(0, pokedexComputer.size());
                 int choiceComputerAtt = random.nextInt(0, pokedexComputer.get(choiceComputer).getAttacks().size());
                 System.out.println("\nThe computer has chosen " + pokedexComputer.get(choiceComputer).getName() + " (" + pokedexComputer.get(choiceComputer).getAttacks().get(choiceComputerAtt).getName() + ")");
+                while (pokedex.get(choicePokemon).getCurrentHp() > 0 || pokedexComputer.get(choiceComputer).getCurrentHp() > 0){
+                    int test=readIntBetween(scanner, "\nEnter '0' to exit: ", 0, 0);
+                    if (test==0){
+                        break;
+                    }
+                }
             }
 
         }
