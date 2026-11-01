@@ -7,7 +7,7 @@ public class Pokemon{
     private final String name;
     private final Type type;
     private final int maxHp;
-    private final int currentHp;
+    private int currentHp;
     private final List<Attack> attacks;
 
     public String getName() {
@@ -28,6 +28,18 @@ public class Pokemon{
 
     public List<Attack> getAttacks() {
         return attacks;
+    }
+
+    public void takeDamage(int amount){
+        if (amount < 0){
+            System.out.println("Error. Damage can't be negative.");
+            return;
+        }
+        this.currentHp = Math.max(0, this.currentHp-amount);
+    }
+
+    public boolean isFainted(){
+        return this.currentHp==0;
     }
 
     public Pokemon(String name, Type type, int maxHp, int currentHp) {
