@@ -230,11 +230,13 @@ public class Pokedex {
                     pokedexComputer.get(choiceComputer).takeDamage(pokedex.get(choicePokemon).getAttacks().get(choicePokemonAtt).getBaseDamage());
                 }
 
-                if (pokedex.get(choicePokemon).isFainted()){
+                if (pokedex.get(choicePokemon).isFainted() && pokedexComputer.get(choiceComputer).isFainted()){
+                    System.out.println("It's a tie.");
+                }
+                else if (pokedex.get(choicePokemon).isFainted()){
                     System.out.println("\nYou lost. " + pokedexComputer.get(choiceComputer).getName() + "'s HP is " + pokedexComputer.get(choiceComputer).getCurrentHp());
                 }
-
-                if (pokedexComputer.get(choiceComputer).isFainted()){
+                else{
                     System.out.println("\nYou won. " + pokedex.get(choicePokemon).getName() + "'s HP is " + pokedex.get(choicePokemon).getCurrentHp());
                 }
             }
