@@ -228,12 +228,14 @@ public class Pokedex {
                             System.out.println(i + ". " + player.getAttacks().get(i).getName());
                         }
                         int choicePokemonAtt=readIntBetween(scanner, "\nChoose attack: ", 0, player.getAttacks().size()-1);
-                        System.out.println("\nYou have chosen " + player.getName() + " (" + player.getAttacks().get(choicePokemonAtt).getName() + ")");
+                        Attack playerAttack=player.getAttacks().get(choicePokemonAtt);
+                        System.out.println("\nYou have chosen " + player.getName() + " (" + playerAttack.getName() + ")");
                         int choiceComputerAtt = random.nextInt(0, enemy.getAttacks().size());
-                        System.out.println("\nThe computer has chosen " + enemy.getName() + " (" + enemy.getAttacks().get(choiceComputerAtt).getName() + ")");
+                        Attack enemyAttack=enemy.getAttacks().get(choiceComputerAtt);
+                        System.out.println("\nThe computer has chosen " + enemy.getName() + " (" + enemyAttack.getName() + ")");
                         int probability=random.nextInt(1, 101);
-                        if (probability <= player.getAttacks().get(choicePokemonAtt).getAccuracy()){
-                            enemy.takeDamage(player.getAttacks().get(choicePokemonAtt).getBaseDamage());
+                        if (probability <= playerAttack.getAccuracy()){
+                            enemy.takeDamage(playerAttack.getBaseDamage());
                             System.out.println("\nYou successfully attacked your opponent!");
                         }
                         else{
@@ -244,8 +246,8 @@ public class Pokedex {
                             break;
                         }
                         int secondProb=random.nextInt(1, 101);
-                        if (secondProb <= enemy.getAttacks().get(choiceComputerAtt).getAccuracy()){
-                            player.takeDamage(enemy.getAttacks().get(choiceComputerAtt).getBaseDamage());
+                        if (secondProb <= enemyAttack.getAccuracy()){
+                            player.takeDamage(enemyAttack.getBaseDamage());
                             System.out.println("\nYour opponent successfully attacked you!");
                         }
                         else {
@@ -259,12 +261,14 @@ public class Pokedex {
                             System.out.println(i + ". " + player.getAttacks().get(i).getName());
                         }
                         int choicePokemonAtt=readIntBetween(scanner, "\nChoose attack: ", 0, player.getAttacks().size()-1);
-                        System.out.println("\nYou have chosen " + player.getName() + " (" + player.getAttacks().get(choicePokemonAtt).getName() + ")");
+                        Attack playerAttack=player.getAttacks().get(choicePokemonAtt);
+                        System.out.println("\nYou have chosen " + player.getName() + " (" + playerAttack.getName() + ")");
                         int choiceComputerAtt = random.nextInt(0, enemy.getAttacks().size());
-                        System.out.println("\nThe computer has chosen " + enemy.getName() + " (" + enemy.getAttacks().get(choiceComputerAtt).getName() + ")");
+                        Attack enemyAttack=enemy.getAttacks().get(choiceComputerAtt);
+                        System.out.println("\nThe computer has chosen " + enemy.getName() + " (" + enemyAttack.getName() + ")");
                         int probability= random.nextInt(1, 101);
-                        if (probability <= enemy.getAttacks().get(choiceComputerAtt).getAccuracy()){
-                            player.takeDamage(enemy.getAttacks().get(choiceComputerAtt).getBaseDamage());
+                        if (probability <= enemyAttack.getAccuracy()){
+                            player.takeDamage(enemyAttack.getBaseDamage());
                             System.out.println("\nYour opponent successfully attacked you!");
                         }
                         else{
@@ -275,8 +279,8 @@ public class Pokedex {
                             break;
                         }
                         int secondProb=random.nextInt(1, 101);
-                        if (secondProb <= player.getAttacks().get(choicePokemonAtt).getAccuracy()){
-                            enemy.takeDamage(player.getAttacks().get(choicePokemonAtt).getBaseDamage());
+                        if (secondProb <= playerAttack.getAccuracy()){
+                            enemy.takeDamage(playerAttack.getBaseDamage());
                             System.out.println("\nYou successfully attacked your opponent!");
                         }
                         else {
@@ -288,14 +292,12 @@ public class Pokedex {
 
                 if (player.isFainted()){
                     System.out.println("\nYou lost! " + enemy.getName() + "'s HP is " + enemy.getCurrentHp() + ".");
-                    player.heal(player.getMaxHp());
-                    enemy.heal(enemy.getMaxHp());
                 }
                 else{
                     System.out.println("\nYou won! " + player.getName() + "'s HP is " + player.getCurrentHp() + ".");
-                    player.heal(player.getMaxHp());
-                    enemy.heal(enemy.getMaxHp());
                 }
+                player.heal(player.getMaxHp());
+                enemy.heal(enemy.getMaxHp());
             }
 
         }
