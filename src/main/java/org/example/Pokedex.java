@@ -214,30 +214,32 @@ public class Pokedex {
                 System.out.println("To choose a Pokemon, enter the corresponding number:");
                 pokedexNameChoice();
                 int choicePokemon=readIntBetween(scanner, "\nYour choice: ", 0, pokedex.size()-1);
+                Pokemon player=pokedex.get(choicePokemon);
                 Random random = new Random();
                 int choiceComputer = random.nextInt(0, pokedexComputer.size());
+                Pokemon enemy=pokedexComputer.get(choiceComputer);
 
-                while (pokedex.get(choicePokemon).getCurrentHp() > 0 && pokedexComputer.get(choiceComputer).getCurrentHp() > 0){
+                while (player.getCurrentHp() > 0 && enemy.getCurrentHp() > 0){
                     System.out.println("\nAttacks:");
-                    for (int i=0;i<pokedex.get(choicePokemon).getAttacks().size();i++){
-                        System.out.println(i + ". " + pokedex.get(choicePokemon).getAttacks().get(i).getName());
+                    for (int i=0;i<player.getAttacks().size();i++){
+                        System.out.println(i + ". " + player.getAttacks().get(i).getName());
                     }
-                    int choicePokemonAtt=readIntBetween(scanner, "\nChoose attack: ", 0, pokedex.get(choicePokemon).getAttacks().size()-1);
-                    System.out.println("\nYou have chosen " + pokedex.get(choicePokemon).getName() + " (" + pokedex.get(choicePokemon).getAttacks().get(choicePokemonAtt).getName() + ")");
-                    int choiceComputerAtt = random.nextInt(0, pokedexComputer.get(choiceComputer).getAttacks().size());
-                    System.out.println("\nThe computer has chosen " + pokedexComputer.get(choiceComputer).getName() + " (" + pokedexComputer.get(choiceComputer).getAttacks().get(choiceComputerAtt).getName() + ")");
-                    pokedex.get(choicePokemon).takeDamage(pokedexComputer.get(choiceComputer).getAttacks().get(choiceComputerAtt).getBaseDamage());
-                    pokedexComputer.get(choiceComputer).takeDamage(pokedex.get(choicePokemon).getAttacks().get(choicePokemonAtt).getBaseDamage());
+                    int choicePokemonAtt=readIntBetween(scanner, "\nChoose attack: ", 0, player.getAttacks().size()-1);
+                    System.out.println("\nYou have chosen " + player.getName() + " (" + player.getAttacks().get(choicePokemonAtt).getName() + ")");
+                    int choiceComputerAtt = random.nextInt(0, enemy.getAttacks().size());
+                    System.out.println("\nThe computer has chosen " + enemy.getName() + " (" + enemy.getAttacks().get(choiceComputerAtt).getName() + ")");
+                    player.takeDamage(enemy.getAttacks().get(choiceComputerAtt).getBaseDamage());
+                    enemy.takeDamage(player.getAttacks().get(choicePokemonAtt).getBaseDamage());
                 }
 
-                if (pokedex.get(choicePokemon).isFainted() && pokedexComputer.get(choiceComputer).isFainted()){
-                    System.out.println("It's a tie.");
+                if (player.isFainted() && enemy.isFainted()){
+                    System.out.println("It's a tie!");
                 }
-                else if (pokedex.get(choicePokemon).isFainted()){
-                    System.out.println("\nYou lost. " + pokedexComputer.get(choiceComputer).getName() + "'s HP is " + pokedexComputer.get(choiceComputer).getCurrentHp());
+                else if (player.isFainted()){
+                    System.out.println("\nYou lost! " + enemy.getName() + "'s HP is " + enemy.getCurrentHp() + ".");
                 }
                 else{
-                    System.out.println("\nYou won. " + pokedex.get(choicePokemon).getName() + "'s HP is " + pokedex.get(choicePokemon).getCurrentHp());
+                    System.out.println("\nYou won! " + player.getName() + "'s HP is " + player.getCurrentHp() + ".");
                 }
             }
 
