@@ -42,6 +42,10 @@ public class Pokemon{
         return this.currentHp==0;
     }
 
+    public void heal(int amount){
+        this.currentHp = Math.min(maxHp, amount + this.currentHp);
+    }
+
     public Pokemon(String name, Type type, int maxHp, int currentHp) {
         if (name == null || name.isBlank()){
             throw new IllegalArgumentException("You need to write a name.");

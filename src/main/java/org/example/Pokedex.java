@@ -260,9 +260,13 @@ public class Pokedex {
 
                 if (player.isFainted()){
                     System.out.println("\nYou lost! " + enemy.getName() + "'s HP is " + enemy.getCurrentHp() + ".");
+                    player.heal(player.getMaxHp());
+                    enemy.heal(enemy.getMaxHp());
                 }
                 else{
                     System.out.println("\nYou won! " + player.getName() + "'s HP is " + player.getCurrentHp() + ".");
+                    player.heal(player.getMaxHp());
+                    enemy.heal(enemy.getMaxHp());
                 }
             }
 
