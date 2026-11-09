@@ -35,17 +35,15 @@ public class Pokedex {
             if (choice == 2) {
                 if (pokedex.isEmpty()){
                     System.out.println("\nThere are no Pokemon to save.");
-                    System.out.println("\nExiting program...");
-                    break;
                 }
                 else {
                     ArrayList<Pokemon> allPokemonToSave = new ArrayList<>(pokedex);
 
                     saveDataToCSV(allPokemonToSave);
 
-                    System.out.println("\nExiting program...");
-                    break;
                 }
+                System.out.println("\nExiting program...");
+                break;
             }
 
             if (choice==3){
