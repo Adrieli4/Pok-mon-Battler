@@ -1,8 +1,5 @@
 package org.example;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.Random;
 
@@ -56,79 +53,7 @@ public class Pokedex {
                     System.out.println("\nThe pokedex is empty.");
                 }
                 else{
-                    System.out.println("\nYour Pokemon:");
-                    showPokedex(pokedex);
-                    System.out.println("\nChoose something to edit:");
-                    System.out.println("1) Edit name  2) Edit type  3) Edit HP  4) Add attack  5) Remove attack");
-                    int choiceEditPokemon=readIntBetween(scanner, "Your choice: ", 1, 5);
-
-                    if (choiceEditPokemon==1){
-                        pokedexNameChoice(pokedex);
-                        int num= readIntBetween(scanner, "\nTo choose a Pokemon, enter the corresponding number: ", 0, pokedex.size()-1);
-                        String newName=readString(scanner, "What would you like to call the Pokemon: ");
-                        Pokemon pokemon=new Pokemon(newName, pokedex.get(num).getType(), pokedex.get(num).getMaxHp(), pokedex.get(num).getCurrentHp());
-                        for (Attack attack : pokedex.get(num).getAttacks()) {
-                            pokemon.getAttacks().add(new Attack(attack.getName(), attack.getBaseDamage(), attack.getAccuracy(), attack.getType()));
-                        }
-                        pokedex.set(num, pokemon);
-                        System.out.println("\nThe name has successfully been changed to " + newName);
-                    }
-
-                    if (choiceEditPokemon==2){
-                        pokedexNameChoice(pokedex);
-                        int num= readIntBetween(scanner, "\nTo choose a Pokemon, enter the corresponding number: ", 0, pokedex.size()-1);
-                        Type newType= readType(scanner, "What should the type be (FIRE, WATER, GRASS, ELECTRIC, NORMAL): ");
-                        Pokemon pokemon=new Pokemon(pokedex.get(num).getName(), newType, pokedex.get(num).getMaxHp(), pokedex.get(num).getCurrentHp());
-                        for (Attack attack : pokedex.get(num).getAttacks()) {
-                            pokemon.getAttacks().add(new Attack(attack.getName(), attack.getBaseDamage(), attack.getAccuracy(), attack.getType()));
-                        }
-                        pokedex.set(num, pokemon);
-                        System.out.println("\n" + pokemon.getName() + "'s type has successfully been changed to " + pokemon.getType());
-                    }
-
-                    if (choiceEditPokemon==3){
-                        pokedexNameChoice(pokedex);
-                        int num= readIntBetween(scanner, "\nTo choose a Pokemon, enter the corresponding number: ", 0, pokedex.size()-1);
-                        int newHp= readIntBetween(scanner, "What should the max HP be (1-255): ", 1, 255);
-                        Pokemon pokemon=new Pokemon(pokedex.get(num).getName(), pokedex.get(num).getType(), newHp, newHp);
-                        for (Attack attack : pokedex.get(num).getAttacks()) {
-                            pokemon.getAttacks().add(new Attack(attack.getName(), attack.getBaseDamage(), attack.getAccuracy(), attack.getType()));
-                        }
-                        pokedex.set(num, pokemon);
-                        System.out.println("\n" + pokemon.getName() + "'s HP has successfully been changed to " + pokemon.getMaxHp());
-                    }
-
-                    if (choiceEditPokemon==4){
-                        pokedexNameChoice(pokedex);
-                        int num=readIntBetween(scanner, "\nTo choose a Pokemon, enter the corresponding number: ", 0, pokedex.size()-1);
-                        if (pokedex.get(num).getAttacks().size()==4){
-                            System.out.println(" ");
-                            System.out.println(pokedex.get(num).getName() + " already has 4 attacks.");
-                        }
-                        else{
-                            addAttack(scanner, pokedex.get(num));
-                            System.out.println("\n" + pokedex.get(num).getAttacks().getLast().getName() + " has successfully been added.");
-                        }
-
-                    }
-
-                    if (choiceEditPokemon==5){
-                        pokedexNameChoice(pokedex);
-                        int num=readIntBetween(scanner, "\nTo choose a Pokemon, enter the corresponding number: ", 0, pokedex.size()-1);
-                        if (pokedex.get(num).getAttacks().size()==1){
-                            System.out.println(" ");
-                            System.out.println(pokedex.get(num).getName() + " only has 1 attack.");
-                        }
-                        else{
-                            System.out.println(" ");
-                            for (int i = 0; i < pokedex.get(num).getAttacks().size(); i++){
-                                System.out.println(i+ ". "+ pokedex.get(num).getAttacks().get(i).getName());
-                            }
-                            int removeAttack=readIntBetween(scanner, "\nTo remove an attack, enter the corresponding number: ", 0, pokedex.get(num).getAttacks().size()-1);
-                            System.out.println("\nRemoving " + pokedex.get(num).getAttacks().get(removeAttack).getName() + "...");
-                            pokedex.get(num).getAttacks().remove(removeAttack);
-                        }
-                    }
+                    editPokemon(scanner);
                 }
 
             }
@@ -252,6 +177,34 @@ public class Pokedex {
         }
 
         scanner.close();
+    }
+
+    public static void editPokemon(Scanner scanner){
+        System.out.println("\nYour Pokemon:");
+        showPokedex(pokedex);
+        System.out.println("\nChoose something to edit:");
+        System.out.println("1) Edit name  2) Edit type  3) Edit HP  4) Add attack  5) Remove attack");
+        int choiceEditPokemon=readIntBetween(scanner, "Your choice: ", 1, 5);
+
+        if (choiceEditPokemon==1){
+            editName(scanner, pokedex);
+        }
+
+        if (choiceEditPokemon==2){
+            editType(scanner, pokedex);
+        }
+
+        if (choiceEditPokemon==3){
+            editHp(scanner, pokedex);
+        }
+
+        if (choiceEditPokemon==4){
+            editAddAttack(scanner, pokedex);
+        }
+
+        if (choiceEditPokemon==5){
+            removeAttack(scanner, pokedex);
+        }
     }
 
     public static void pokedexOptions(Scanner scanner){
