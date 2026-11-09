@@ -96,22 +96,22 @@ public class Pokedex {
                 System.out.println("Computer choice: " + enemy.getName() + ", " + enemy.getCurrentHp() + " HP");
 
                 while (player.getCurrentHp() > 0 && enemy.getCurrentHp() > 0){
+                    System.out.println("\nAttacks:");
+                    for (int i=0;i<player.getAttacks().size();i++){
+                        System.out.println(i + ". " + player.getAttacks().get(i).getName());
+                    }
+
+                    int choicePokemonAtt=readIntBetween(scanner, "\nChoose attack: ", 0, player.getAttacks().size()-1);
+                    Attack playerAttack=player.getAttacks().get(choicePokemonAtt);
+                    System.out.println("\nYou have chosen " + player.getName() + " (" + playerAttack.getName() + ")");
+                    DamageAttack damageAttackPlayer=new DamageAttack(playerAttack.getName(), playerAttack.getBaseDamage(), playerAttack.getAccuracy(), playerAttack.getType(), playerAttack.getBaseDamage());
+
+                    int choiceComputerAtt = random.nextInt(0, enemy.getAttacks().size());
+                    Attack enemyAttack=enemy.getAttacks().get(choiceComputerAtt);
+                    System.out.println("\nThe computer has chosen " + enemy.getName() + " (" + enemyAttack.getName() + ")");
+                    DamageAttack damageAttackEnemy=new DamageAttack(enemyAttack.getName(), enemyAttack.getBaseDamage(), enemyAttack.getAccuracy(), enemyAttack.getType(), enemyAttack.getBaseDamage());
+
                     if (player.getCurrentHp() < enemy.getCurrentHp()){
-                        System.out.println("\nAttacks:");
-                        for (int i=0;i<player.getAttacks().size();i++){
-                            System.out.println(i + ". " + player.getAttacks().get(i).getName());
-                        }
-
-                        int choicePokemonAtt=readIntBetween(scanner, "\nChoose attack: ", 0, player.getAttacks().size()-1);
-                        Attack playerAttack=player.getAttacks().get(choicePokemonAtt);
-                        System.out.println("\nYou have chosen " + player.getName() + " (" + playerAttack.getName() + ")");
-                        DamageAttack damageAttackPlayer=new DamageAttack(playerAttack.getName(), playerAttack.getBaseDamage(), playerAttack.getAccuracy(), playerAttack.getType(), playerAttack.getBaseDamage());
-
-                        int choiceComputerAtt = random.nextInt(0, enemy.getAttacks().size());
-                        Attack enemyAttack=enemy.getAttacks().get(choiceComputerAtt);
-                        System.out.println("\nThe computer has chosen " + enemy.getName() + " (" + enemyAttack.getName() + ")");
-                        DamageAttack damageAttackEnemy=new DamageAttack(enemyAttack.getName(), enemyAttack.getBaseDamage(), enemyAttack.getAccuracy(), enemyAttack.getType(), enemyAttack.getBaseDamage());
-
                         int probability=random.nextInt(1, 101);
                         if (probability <= playerAttack.getAccuracy()){
                             damageAttackPlayer.execute(player, enemy);
@@ -133,21 +133,6 @@ public class Pokedex {
                         System.out.println("\nYour HP: " + player.getCurrentHp());
                     }
                     else {
-                        System.out.println("\nAttacks:");
-                        for (int i=0;i<player.getAttacks().size();i++){
-                            System.out.println(i + ". " + player.getAttacks().get(i).getName());
-                        }
-
-                        int choicePokemonAtt=readIntBetween(scanner, "\nChoose attack: ", 0, player.getAttacks().size()-1);
-                        Attack playerAttack=player.getAttacks().get(choicePokemonAtt);
-                        System.out.println("\nYou have chosen " + player.getName() + " (" + playerAttack.getName() + ")");
-                        DamageAttack damageAttackPlayer=new DamageAttack(playerAttack.getName(), playerAttack.getBaseDamage(), playerAttack.getAccuracy(), playerAttack.getType(), playerAttack.getBaseDamage());
-
-                        int choiceComputerAtt = random.nextInt(0, enemy.getAttacks().size());
-                        Attack enemyAttack=enemy.getAttacks().get(choiceComputerAtt);
-                        System.out.println("\nThe computer has chosen " + enemy.getName() + " (" + enemyAttack.getName() + ")");
-                        DamageAttack damageAttackEnemy=new DamageAttack(enemyAttack.getName(), enemyAttack.getBaseDamage(), enemyAttack.getAccuracy(), enemyAttack.getType(), enemyAttack.getBaseDamage());
-
                         int probability= random.nextInt(1, 101);
                         if (probability <= enemyAttack.getAccuracy()){
                             damageAttackEnemy.execute(enemy, player);
