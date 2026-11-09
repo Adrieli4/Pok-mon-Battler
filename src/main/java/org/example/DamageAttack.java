@@ -23,6 +23,6 @@ public class DamageAttack extends Attack implements BattleAction{
     @Override
     public void execute(Pokemon attacker, Pokemon attacked) {
         attacked.takeDamage(power);
-        System.out.println(label() + " attack is worth " + power + " HP!");
+        System.out.println("\n" + attacker.getName() + " uses " + label() + " against " + attacked.getName() + " and the damage it does is " + power + "!");
     }
 }
