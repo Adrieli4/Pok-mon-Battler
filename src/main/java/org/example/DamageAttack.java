@@ -1,6 +1,6 @@
 package org.example;
 
-public class DamageAttack extends Attack{
+public class DamageAttack extends Attack implements BattleAction{
     private final int power;
     private final boolean canCritical;
 
@@ -11,5 +11,16 @@ public class DamageAttack extends Attack{
         }
         this.power = power;
         this.canCritical=false;
+    }
+
+    @Override
+    public String label() {
+        return getName();
+    }
+
+    @Override
+    public void execute(Pokemon attacker, Pokemon attacked) {
+        attacked.takeDamage(power);
+        System.out.println(label() + " attack is worth " + power + " HP!");
     }
 }

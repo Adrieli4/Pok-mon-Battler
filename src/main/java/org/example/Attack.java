@@ -37,8 +37,4 @@ public class Attack{
         this.accuracy = accuracy;
         this.type = type;
     }
-
-    public void execute(Pokemon attacker, Pokemon defender){
-        System.out.println(attacker.getName() + " chooses: " + name);
-    }
 }
