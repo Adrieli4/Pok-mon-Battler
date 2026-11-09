@@ -101,16 +101,20 @@ public class Pokedex {
                         for (int i=0;i<player.getAttacks().size();i++){
                             System.out.println(i + ". " + player.getAttacks().get(i).getName());
                         }
+
                         int choicePokemonAtt=readIntBetween(scanner, "\nChoose attack: ", 0, player.getAttacks().size()-1);
                         Attack playerAttack=player.getAttacks().get(choicePokemonAtt);
                         System.out.println("\nYou have chosen " + player.getName() + " (" + playerAttack.getName() + ")");
+                        DamageAttack damageAttackPlayer=new DamageAttack(playerAttack.getName(), playerAttack.getBaseDamage(), playerAttack.getAccuracy(), playerAttack.getType(), playerAttack.getBaseDamage());
+
                         int choiceComputerAtt = random.nextInt(0, enemy.getAttacks().size());
                         Attack enemyAttack=enemy.getAttacks().get(choiceComputerAtt);
                         System.out.println("\nThe computer has chosen " + enemy.getName() + " (" + enemyAttack.getName() + ")");
+                        DamageAttack damageAttackEnemy=new DamageAttack(enemyAttack.getName(), enemyAttack.getBaseDamage(), enemyAttack.getAccuracy(), enemyAttack.getType(), enemyAttack.getBaseDamage());
+
                         int probability=random.nextInt(1, 101);
                         if (probability <= playerAttack.getAccuracy()){
-                            enemy.takeDamage(playerAttack.getBaseDamage());
-                            System.out.println("\nYou successfully attacked your opponent!");
+                            damageAttackPlayer.execute(player, enemy);
                         }
                         else{
                             System.out.println("\nYou missed!");
@@ -121,8 +125,7 @@ public class Pokedex {
                         }
                         int secondProb=random.nextInt(1, 101);
                         if (secondProb <= enemyAttack.getAccuracy()){
-                            player.takeDamage(enemyAttack.getBaseDamage());
-                            System.out.println("\nYour opponent successfully attacked you!");
+                            damageAttackEnemy.execute(enemy, player);
                         }
                         else {
                             System.out.println("\nYour opponent missed!");
@@ -134,16 +137,20 @@ public class Pokedex {
                         for (int i=0;i<player.getAttacks().size();i++){
                             System.out.println(i + ". " + player.getAttacks().get(i).getName());
                         }
+
                         int choicePokemonAtt=readIntBetween(scanner, "\nChoose attack: ", 0, player.getAttacks().size()-1);
                         Attack playerAttack=player.getAttacks().get(choicePokemonAtt);
                         System.out.println("\nYou have chosen " + player.getName() + " (" + playerAttack.getName() + ")");
+                        DamageAttack damageAttackPlayer=new DamageAttack(playerAttack.getName(), playerAttack.getBaseDamage(), playerAttack.getAccuracy(), playerAttack.getType(), playerAttack.getBaseDamage());
+
                         int choiceComputerAtt = random.nextInt(0, enemy.getAttacks().size());
                         Attack enemyAttack=enemy.getAttacks().get(choiceComputerAtt);
                         System.out.println("\nThe computer has chosen " + enemy.getName() + " (" + enemyAttack.getName() + ")");
+                        DamageAttack damageAttackEnemy=new DamageAttack(enemyAttack.getName(), enemyAttack.getBaseDamage(), enemyAttack.getAccuracy(), enemyAttack.getType(), enemyAttack.getBaseDamage());
+
                         int probability= random.nextInt(1, 101);
                         if (probability <= enemyAttack.getAccuracy()){
-                            player.takeDamage(enemyAttack.getBaseDamage());
-                            System.out.println("\nYour opponent successfully attacked you!");
+                            damageAttackEnemy.execute(enemy, player);
                         }
                         else{
                             System.out.println("\nYour opponent missed!");
@@ -154,8 +161,7 @@ public class Pokedex {
                         }
                         int secondProb=random.nextInt(1, 101);
                         if (secondProb <= playerAttack.getAccuracy()){
-                            enemy.takeDamage(playerAttack.getBaseDamage());
-                            System.out.println("\nYou successfully attacked your opponent!");
+                            damageAttackPlayer.execute(player, enemy);
                         }
                         else {
                             System.out.println("\nYou missed!");
