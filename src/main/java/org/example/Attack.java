@@ -38,7 +38,7 @@ public class Attack{
         this.type = type;
     }
 
-    public void pokUseAtt(Pokemon attacker, Pokemon defender){
+    public void execute(Pokemon attacker, Pokemon defender){
         System.out.println(attacker.getName() + " chooses: " + name);
     }
 }
