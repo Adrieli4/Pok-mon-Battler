@@ -3,8 +3,7 @@ package org.example;
 import java.util.*;
 import java.util.Random;
 
-import static org.example.FileHelper.loadDataFromCSV;
-import static org.example.FileHelper.saveDataToCSV;
+import static org.example.FileHelper.*;
 import static org.example.InputHelper.*;
 import static org.example.PokedexCRUD.*;
 
@@ -92,6 +91,11 @@ public class Pokedex {
                 Pokemon enemy=pokedexComputer.get(choiceComputer);
                 System.out.println("Your choice: " + player.getName() + ", " + player.getCurrentHp() + " HP");
                 System.out.println("Computer choice: " + enemy.getName() + ", " + enemy.getCurrentHp() + " HP");
+
+                ArrayList<Pokemon> fighterPokemon=new ArrayList<>();
+                fighterPokemon.add(player);
+                fighterPokemon.add(enemy);
+                saveFightDataPokemonToCSV(fighterPokemon);
 
                 while (player.getCurrentHp() > 0 && enemy.getCurrentHp() > 0){
                     System.out.println("\nAttacks:");

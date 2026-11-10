@@ -9,6 +9,31 @@ import java.util.List;
 public class FileHelper {
     public static Path pokemonPath=Path.of("saved-pokemon.txt");
     public static Path attackPath=Path.of("saved-attacks.txt");
+    public static Path pokemonFightPath=Path.of("saved-pokemon-fight.txt");
+    public static Path attackFightPath=Path.of("saved-attacks-fight.txt");
+
+    public static void saveFightDataPokemonToCSV(ArrayList<Pokemon> pokemon){
+        ArrayList<String> pokemonFightLines = new ArrayList<>();
+        ArrayList<String> attackFightLines = new ArrayList<>();
+
+        for (Pokemon pok: pokemon){
+            pokemonFightLines.add(pok.getName() + ","+ pok.getType() + ","+ pok.getMaxHp() + ","+ pok.getCurrentHp());
+            for (Attack att : pok.getAttacks()){
+                attackFightLines.add(att.getName() + ","+ att.getType() + ","+ att.getBaseDamage() + "," + att.getAccuracy() + ","+ pok.getName());
+            }
+        }
+
+        String allPokemonFight= String.join("\n", pokemonFightLines);
+        String allAttacksFight= String.join("\n", attackFightLines);
+
+        try {
+            Files.writeString(pokemonFightPath, allPokemonFight);
+            Files.writeString(attackFightPath, allAttacksFight);
+        }
+        catch (IOException e){
+            System.err.println("Couldn't save files: " + e.getMessage());
+        }
+    }
 
     public static void saveDataToCSV(ArrayList<Pokemon> pokemon){
         ArrayList<String> pokemonLines = new ArrayList<>();
