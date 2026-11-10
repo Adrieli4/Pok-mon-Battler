@@ -10,6 +10,7 @@ import static org.example.PokedexCRUD.*;
 public class Pokedex {
     private static ArrayList<Pokemon> pokedex = new ArrayList<>();
     private static final ArrayList<Pokemon> pokedexComputer = new ArrayList<>();
+    private static ArrayList<Pokemon> fighterPokemon=new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -24,8 +25,8 @@ public class Pokedex {
 
         while (true) {
             System.out.println("\nPokedex");
-            System.out.println("1) Pokedex options  2) Save to file and exit  3) Edit Pokemon  4) Save data to file  5) Load data from file  6) Start battle");
-            int choice = readIntBetween(scanner, "Your choice: ", 1, 6);
+            System.out.println("1) Pokedex options  2) Save to file and exit  3) Edit Pokemon  4) Save data to file  5) Load data from file  6) Start battle  7) Latest battle statistics");
+            int choice = readIntBetween(scanner, "Your choice: ", 1, 7);
 
             if (choice == 1) {
                 pokedexOptions(scanner);
@@ -92,10 +93,11 @@ public class Pokedex {
                 System.out.println("Your choice: " + player.getName() + ", " + player.getCurrentHp() + " HP");
                 System.out.println("Computer choice: " + enemy.getName() + ", " + enemy.getCurrentHp() + " HP");
 
-                ArrayList<Pokemon> fighterPokemon=new ArrayList<>();
+                fighterPokemon.clear();
                 fighterPokemon.add(player);
                 fighterPokemon.add(enemy);
-                saveFightDataPokemonToCSV(fighterPokemon);
+                ArrayList<Pokemon> allPokemonFightersToSave=new ArrayList<>(fighterPokemon);
+                saveFightDataPokemonToCSV(allPokemonFightersToSave);
 
                 while (player.getCurrentHp() > 0 && enemy.getCurrentHp() > 0){
                     System.out.println("\nAttacks:");
@@ -165,6 +167,28 @@ public class Pokedex {
                 }
                 player.heal(player.getMaxHp());
                 enemy.heal(enemy.getMaxHp());
+            }
+
+            if (choice==7){
+                fighterPokemon.clear();
+                List<Pokemon> loadedFighterPokemon=loadFightDataPokemonFromCSV();
+                fighterPokemon= (ArrayList<Pokemon>) loadedFighterPokemon;
+                if (fighterPokemon.isEmpty()){
+                    System.out.println("\nThere are no statistics.");
+                }
+                else{
+                    for (Pokemon pok : fighterPokemon) {
+                        System.out.println("\nName: " + pok.getName() + " (" + pok.getType() + ")");
+                        System.out.println(" - Max HP: " + pok.getMaxHp());
+                        System.out.println(" - Current HP: " + pok.getCurrentHp());
+                        System.out.println(" - Attacks:");
+                        for (Attack att : pok.getAttacks()) {
+                            System.out.println("  -  " + att.getName() + " (base damage: " + att.getBaseDamage()
+                                    + ", accuracy: " + att.getAccuracy() + ", type: " + att.getType() + ")");
+                        }
+                        System.out.println();
+                    }
+                }
             }
 
         }
