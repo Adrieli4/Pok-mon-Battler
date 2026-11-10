@@ -11,6 +11,74 @@ public class FileHelper {
     public static Path attackPath=Path.of("saved-attacks.txt");
     public static Path pokemonFightPath=Path.of("saved-pokemon-fight.txt");
     public static Path attackFightPath=Path.of("saved-attacks-fight.txt");
+    public static Path playerHpPath=Path.of("player-hp.txt");
+    public static Path enemyHpPath=Path.of("enemy-hp.txt");
+
+    public static ArrayList<String> loadEnemyHp(){
+        ArrayList<String> loadedEnemyHp=new ArrayList<>();
+        try{
+            ArrayList<String> enemyHpLines= (ArrayList<String>) Files.readAllLines(enemyHpPath);
+            for (String line : enemyHpLines){
+                if (line.isBlank()) continue;
+                String[] parts=line.split(",");
+                String currentHp=parts[0];
+                loadedEnemyHp.add(currentHp);
+            }
+        }
+        catch (IOException e){
+            System.err.println("Couldn't load files: " + e.getMessage());
+        }
+        catch (Exception e){
+            System.out.println("\nSomething went wrong when loading the files.");
+        }
+
+        return loadedEnemyHp;
+    }
+
+    public static ArrayList<String> loadPlayerHp(){
+        ArrayList<String> loadedPlayerHp=new ArrayList<>();
+        try{
+            ArrayList<String> playerHpLines= (ArrayList<String>) Files.readAllLines(playerHpPath);
+            for (String line : playerHpLines){
+                if (line.isBlank()) continue;
+                String[] parts=line.split(",");
+                String currentHp=parts[0];
+                loadedPlayerHp.add(currentHp);
+            }
+        }
+        catch (IOException e){
+            System.err.println("Couldn't load files: " + e.getMessage());
+        }
+        catch (Exception e){
+            System.out.println("\nSomething went wrong when loading the files.");
+        }
+
+        return loadedPlayerHp;
+    }
+
+    public static void saveEnemyHp(ArrayList<String> enemyHp){
+
+        ArrayList<String> enemyHpAfterRound = new ArrayList<>(enemyHp);
+
+        try {
+            Files.write(enemyHpPath, enemyHpAfterRound);
+        }
+        catch (IOException e){
+            System.err.println("Couldn't save files: " + e.getMessage());
+        }
+    }
+
+    public static void savePlayerHp(ArrayList<String> playerHp){
+
+        ArrayList<String> playerHpAfterRound = new ArrayList<>(playerHp);
+
+        try {
+            Files.write(playerHpPath, playerHpAfterRound);
+        }
+        catch (IOException e){
+            System.err.println("Couldn't save files: " + e.getMessage());
+        }
+    }
 
     public static List<Pokemon> loadFightDataPokemonFromCSV(){
         List<Pokemon> loadedFighterPokemon=new ArrayList<>();

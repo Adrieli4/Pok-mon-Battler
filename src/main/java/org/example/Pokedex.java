@@ -11,6 +11,8 @@ public class Pokedex {
     private static ArrayList<Pokemon> pokedex = new ArrayList<>();
     private static final ArrayList<Pokemon> pokedexComputer = new ArrayList<>();
     private static ArrayList<Pokemon> fighterPokemon=new ArrayList<>();
+    private static ArrayList<String> playerHp=new ArrayList<>();
+    private static ArrayList<String> enemyHp=new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -81,6 +83,10 @@ public class Pokedex {
             }
 
             if (choice==6){
+                fighterPokemon.clear();
+                playerHp.clear();
+                enemyHp.clear();
+
                 System.out.println("\nYour Pokemon:");
                 showPokedex(pokedex);
                 System.out.println("To choose a Pokemon, enter the corresponding number:");
@@ -93,7 +99,6 @@ public class Pokedex {
                 System.out.println("Your choice: " + player.getName() + ", " + player.getCurrentHp() + " HP");
                 System.out.println("Computer choice: " + enemy.getName() + ", " + enemy.getCurrentHp() + " HP");
 
-                fighterPokemon.clear();
                 fighterPokemon.add(player);
                 fighterPokemon.add(enemy);
                 ArrayList<Pokemon> allPokemonFightersToSave=new ArrayList<>(fighterPokemon);
@@ -124,7 +129,11 @@ public class Pokedex {
                             System.out.println("\nYou missed!");
                         }
                         System.out.println("\nComputer HP: " + enemy.getCurrentHp());
+                        enemyHp.add(Integer.toString(enemy.getCurrentHp()));
                         if (enemy.isFainted()){
+                            playerHp.add(Integer.toString(player.getCurrentHp()));
+                            savePlayerHp(playerHp);
+                            saveEnemyHp(enemyHp);
                             break;
                         }
                         int secondProb=random.nextInt(1, 101);
@@ -135,6 +144,7 @@ public class Pokedex {
                             System.out.println("\nYour opponent missed!");
                         }
                         System.out.println("\nYour HP: " + player.getCurrentHp());
+                        playerHp.add(Integer.toString(player.getCurrentHp()));
                     }
                     else {
                         int probability= random.nextInt(1, 101);
@@ -145,7 +155,11 @@ public class Pokedex {
                             System.out.println("\nYour opponent missed!");
                         }
                         System.out.println("\nYour HP: " + player.getCurrentHp());
+                        playerHp.add(Integer.toString(player.getCurrentHp()));
                         if (player.isFainted()){
+                            enemyHp.add(Integer.toString(enemy.getCurrentHp()));
+                            savePlayerHp(playerHp);
+                            saveEnemyHp(enemyHp);
                             break;
                         }
                         int secondProb=random.nextInt(1, 101);
@@ -156,8 +170,11 @@ public class Pokedex {
                             System.out.println("\nYou missed!");
                         }
                         System.out.println("\nComputer HP: " + enemy.getCurrentHp());
+                        enemyHp.add(Integer.toString(enemy.getCurrentHp()));
                     }
                 }
+                savePlayerHp(playerHp);
+                saveEnemyHp(enemyHp);
 
                 if (player.isFainted()){
                     System.out.println("\nYou lost! " + enemy.getName() + "'s HP is " + enemy.getCurrentHp() + ".");
@@ -171,8 +188,12 @@ public class Pokedex {
 
             if (choice==7){
                 fighterPokemon.clear();
+                playerHp.clear();
+                enemyHp.clear();
                 List<Pokemon> loadedFighterPokemon=loadFightDataPokemonFromCSV();
                 fighterPokemon= (ArrayList<Pokemon>) loadedFighterPokemon;
+                playerHp=loadPlayerHp();
+                enemyHp=loadEnemyHp();
                 if (fighterPokemon.isEmpty()){
                     System.out.println("\nThere are no statistics.");
                 }
@@ -187,6 +208,13 @@ public class Pokedex {
                                     + ", accuracy: " + att.getAccuracy() + ", type: " + att.getType() + ")");
                         }
                         System.out.println();
+                    }
+                    for (int i=1 ; i <= playerHp.size() ; i++){
+                        System.out.println("\nPlayer HP after round number " + i + ": " + playerHp.get(i-1));
+                    }
+                    System.out.println(" ");
+                    for (int i=1 ; i <= enemyHp.size() ; i++){
+                        System.out.println("\nEnemy HP after round number " + i + ": " + enemyHp.get(i-1));
                     }
                 }
             }
