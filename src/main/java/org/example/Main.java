@@ -252,15 +252,14 @@ public class Main {
             }
 
             if (choice==8){
-                System.out.println("\nWork in progress");
-                if (numberOfLosses.isEmpty()){
-                    System.out.println("\nZero losses");
+                if (numberOfLosses.isEmpty() || numberOfLosses.getFirst()<0){
+                    System.out.println("\nYou have never lost.");
                 }
                 else {
                     System.out.println("\nAmount of losses: " + numberOfLosses.getFirst());
                 }
-                if (numberOfWins.isEmpty()){
-                    System.out.println("\nZero wins");
+                if (numberOfWins.isEmpty() || numberOfWins.getFirst()<0){
+                    System.out.println("\nYou have never won.");
                 }
                 else {
                     System.out.println("\nAmount of wins: " + numberOfWins.getFirst());
