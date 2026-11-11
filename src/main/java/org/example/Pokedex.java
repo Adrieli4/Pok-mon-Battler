@@ -198,23 +198,30 @@ public class Pokedex {
                     System.out.println("\nThere are no statistics.");
                 }
                 else{
-                    for (Pokemon pok : fighterPokemon) {
-                        System.out.println("\nName: " + pok.getName() + " (" + pok.getType() + ")");
-                        System.out.println(" - Max HP: " + pok.getMaxHp());
-                        System.out.println(" - Current HP: " + pok.getCurrentHp());
-                        System.out.println(" - Attacks:");
-                        for (Attack att : pok.getAttacks()) {
-                            System.out.println("  -  " + att.getName() + " (base damage: " + att.getBaseDamage()
-                                    + ", accuracy: " + att.getAccuracy() + ", type: " + att.getType() + ")");
-                        }
-                        System.out.println();
+                    System.out.println("\nYour Pokemon's name: " + fighterPokemon.getFirst().getName() + " (" + fighterPokemon.getFirst().getType() + ")");
+                    System.out.println(" - Max HP: " + fighterPokemon.getFirst().getMaxHp());
+                    System.out.println(" - Current HP: " + fighterPokemon.getFirst().getCurrentHp());
+                    System.out.println(" - Attacks:");
+                    for (Attack att : fighterPokemon.getFirst().getAttacks()) {
+                        System.out.println("  -  " + att.getName() + " (base damage: " + att.getBaseDamage()
+                                + ", accuracy: " + att.getAccuracy() + ", type: " + att.getType() + ")");
                     }
+                    System.out.println(" ");
+                    System.out.println("\nComputer Pokemon name: " + fighterPokemon.getLast().getName() + " (" + fighterPokemon.getLast().getType() + ")");
+                    System.out.println(" - Max HP: " + fighterPokemon.getLast().getMaxHp());
+                    System.out.println(" - Current HP: " + fighterPokemon.getLast().getCurrentHp());
+                    System.out.println(" - Attacks:");
+                    for (Attack att : fighterPokemon.getLast().getAttacks()) {
+                        System.out.println("  -  " + att.getName() + " (base damage: " + att.getBaseDamage()
+                                + ", accuracy: " + att.getAccuracy() + ", type: " + att.getType() + ")");
+                    }
+                    System.out.println();
                     for (int i=1 ; i <= playerHp.size() ; i++){
-                        System.out.println("\nPlayer HP after round number " + i + ": " + playerHp.get(i-1));
+                        System.out.println("\nYour HP after round number " + i + ": " + playerHp.get(i-1));
                     }
                     System.out.println(" ");
                     for (int i=1 ; i <= enemyHp.size() ; i++){
-                        System.out.println("\nEnemy HP after round number " + i + ": " + enemyHp.get(i-1));
+                        System.out.println("\nComputer HP after round number " + i + ": " + enemyHp.get(i-1));
                     }
                 }
             }
