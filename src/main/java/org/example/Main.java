@@ -27,6 +27,9 @@ public class Main {
             seedDataComputer();
         }
 
+        numberOfWins.add(loadWins());
+        numberOfLosses.add(loadLosses());
+
         while (true) {
             System.out.println("\nPokedex");
             System.out.println("1) Pokedex options  2) Save to file and exit  3) Edit Pokemon  4) Save data to file  5) Load data from file  6) Start battle  7) Latest battle statistics  8) Total amount of wins and losses");
@@ -198,6 +201,14 @@ public class Main {
                 }
                 player.heal(player.getMaxHp());
                 enemy.heal(enemy.getMaxHp());
+                if (numberOfLosses.isEmpty()){
+                    numberOfLosses.add(0);
+                }
+                if (numberOfWins.isEmpty()){
+                    numberOfWins.add(0);
+                }
+                saveLosses(numberOfLosses.getFirst());
+                saveWins(numberOfWins.getFirst());
             }
 
             if (choice==7){

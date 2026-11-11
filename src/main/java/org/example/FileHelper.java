@@ -16,6 +16,28 @@ public class FileHelper {
     public static Path numberOfWinsPath=Path.of("wins.txt");
     public static Path numberOfLossesPath=Path.of("losses.txt");
 
+    public static int loadLosses(){
+        int allLosses = 0;
+        try{
+            allLosses=Integer.parseInt(Files.readString(numberOfLossesPath));
+        }
+        catch(IOException e){
+            System.err.println("Couldn't load files: " + e.getMessage());
+        }
+        return allLosses;
+    }
+
+    public static int loadWins(){
+        int allWins = 0;
+        try{
+            allWins=Integer.parseInt(Files.readString(numberOfWinsPath));
+        }
+        catch(IOException e){
+            System.err.println("Couldn't load files: " + e.getMessage());
+        }
+        return allWins;
+    }
+
     public static void saveLosses(int losses){
         try {
             Files.writeString(numberOfLossesPath, String.valueOf(losses));
