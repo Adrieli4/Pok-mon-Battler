@@ -7,12 +7,14 @@ import static org.example.FileHelper.*;
 import static org.example.InputHelper.*;
 import static org.example.PokedexCRUD.*;
 
-public class Pokedex {
+public class Main {
     private static ArrayList<Pokemon> pokedex = new ArrayList<>();
     private static final ArrayList<Pokemon> pokedexComputer = new ArrayList<>();
     private static ArrayList<Pokemon> fighterPokemon=new ArrayList<>();
     private static ArrayList<String> playerHp=new ArrayList<>();
     private static ArrayList<String> enemyHp=new ArrayList<>();
+    private static ArrayList<Integer> numberOfWins=new ArrayList<>();
+    private static ArrayList<Integer> numberOfLosses=new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -27,8 +29,8 @@ public class Pokedex {
 
         while (true) {
             System.out.println("\nPokedex");
-            System.out.println("1) Pokedex options  2) Save to file and exit  3) Edit Pokemon  4) Save data to file  5) Load data from file  6) Start battle  7) Latest battle statistics");
-            int choice = readIntBetween(scanner, "Your choice: ", 1, 7);
+            System.out.println("1) Pokedex options  2) Save to file and exit  3) Edit Pokemon  4) Save data to file  5) Load data from file  6) Start battle  7) Latest battle statistics  8) Total amount of wins and losses");
+            int choice = readIntBetween(scanner, "Your choice: ", 1, 8);
 
             if (choice == 1) {
                 pokedexOptions(scanner);
@@ -178,9 +180,21 @@ public class Pokedex {
 
                 if (player.isFainted()){
                     System.out.println("\nYou lost! " + enemy.getName() + "'s HP is " + enemy.getCurrentHp() + ".");
+                    if (numberOfLosses.isEmpty()){
+                        numberOfLosses.add(1);
+                    }
+                    else {
+                        numberOfLosses.set(0, numberOfLosses.getFirst()+1);
+                    }
                 }
                 else{
                     System.out.println("\nYou won! " + player.getName() + "'s HP is " + player.getCurrentHp() + ".");
+                    if (numberOfWins.isEmpty()){
+                        numberOfWins.add(1);
+                    }
+                    else {
+                        numberOfWins.set(0, numberOfWins.getFirst()+1);
+                    }
                 }
                 player.heal(player.getMaxHp());
                 enemy.heal(enemy.getMaxHp());
@@ -223,6 +237,22 @@ public class Pokedex {
                     for (int i=1 ; i <= enemyHp.size() ; i++){
                         System.out.println("\nComputer HP after round number " + i + ": " + enemyHp.get(i-1));
                     }
+                }
+            }
+
+            if (choice==8){
+                System.out.println("\nWork in progress");
+                if (numberOfLosses.isEmpty()){
+                    System.out.println("\nZero losses");
+                }
+                else {
+                    System.out.println("\nAmount of losses: " + numberOfLosses.getFirst());
+                }
+                if (numberOfWins.isEmpty()){
+                    System.out.println("\nZero wins");
+                }
+                else {
+                    System.out.println("\nAmount of wins: " + numberOfWins.getFirst());
                 }
             }
 
