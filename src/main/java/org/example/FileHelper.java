@@ -13,6 +13,26 @@ public class FileHelper {
     public static Path attackFightPath=Path.of("saved-attacks-fight.txt");
     public static Path playerHpPath=Path.of("player-hp.txt");
     public static Path enemyHpPath=Path.of("enemy-hp.txt");
+    public static Path numberOfWinsPath=Path.of("wins.txt");
+    public static Path numberOfLossesPath=Path.of("losses.txt");
+
+    public static void saveLosses(int losses){
+        try {
+            Files.writeString(numberOfLossesPath, String.valueOf(losses));
+        }
+        catch (IOException e){
+            System.err.println("Couldn't save files: " + e.getMessage());
+        }
+    }
+
+    public static void saveWins(int wins){
+        try {
+            Files.writeString(numberOfWinsPath, String.valueOf(wins));
+        }
+        catch (IOException e){
+            System.err.println("Couldn't save files: " + e.getMessage());
+        }
+    }
 
     public static ArrayList<String> loadEnemyHp(){
         ArrayList<String> loadedEnemyHp=new ArrayList<>();
