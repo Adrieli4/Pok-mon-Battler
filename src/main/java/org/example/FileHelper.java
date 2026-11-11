@@ -22,7 +22,10 @@ public class FileHelper {
             allLosses=Integer.parseInt(Files.readString(numberOfLossesPath));
         }
         catch(IOException e){
-            System.err.println("Couldn't load files: " + e.getMessage());
+            System.err.println("\nCouldn't load files: " + e.getMessage());
+        }
+        catch (Exception e){
+            System.out.println("\nThe 'losses' file has been tampered with.");
         }
         return allLosses;
     }
@@ -33,7 +36,10 @@ public class FileHelper {
             allWins=Integer.parseInt(Files.readString(numberOfWinsPath));
         }
         catch(IOException e){
-            System.err.println("Couldn't load files: " + e.getMessage());
+            System.err.println("\nCouldn't load files: " + e.getMessage());
+        }
+        catch (Exception e){
+            System.out.println("\nThe 'wins' file has been tampered with.");
         }
         return allWins;
     }
@@ -43,7 +49,7 @@ public class FileHelper {
             Files.writeString(numberOfLossesPath, String.valueOf(losses));
         }
         catch (IOException e){
-            System.err.println("Couldn't save files: " + e.getMessage());
+            System.err.println("\nCouldn't save files: " + e.getMessage());
         }
     }
 
@@ -52,7 +58,7 @@ public class FileHelper {
             Files.writeString(numberOfWinsPath, String.valueOf(wins));
         }
         catch (IOException e){
-            System.err.println("Couldn't save files: " + e.getMessage());
+            System.err.println("\nCouldn't save files: " + e.getMessage());
         }
     }
 
@@ -68,10 +74,10 @@ public class FileHelper {
             }
         }
         catch (IOException e){
-            System.err.println("Couldn't load files: " + e.getMessage());
+            System.err.println("\nCouldn't load files: " + e.getMessage());
         }
         catch (Exception e){
-            System.out.println("\nSomething went wrong when loading the files.");
+            System.out.println("\nThe enemy HP file has been tampered with.");
         }
 
         return loadedEnemyHp;
@@ -89,10 +95,10 @@ public class FileHelper {
             }
         }
         catch (IOException e){
-            System.err.println("Couldn't load files: " + e.getMessage());
+            System.err.println("\nCouldn't load files: " + e.getMessage());
         }
         catch (Exception e){
-            System.out.println("\nSomething went wrong when loading the files.");
+            System.out.println("\nThe player HP file has been tampered with.");
         }
 
         return loadedPlayerHp;
@@ -106,7 +112,7 @@ public class FileHelper {
             Files.write(enemyHpPath, enemyHpAfterRound);
         }
         catch (IOException e){
-            System.err.println("Couldn't save files: " + e.getMessage());
+            System.err.println("\nCouldn't save files: " + e.getMessage());
         }
     }
 
@@ -118,7 +124,7 @@ public class FileHelper {
             Files.write(playerHpPath, playerHpAfterRound);
         }
         catch (IOException e){
-            System.err.println("Couldn't save files: " + e.getMessage());
+            System.err.println("\nCouldn't save files: " + e.getMessage());
         }
     }
 
@@ -173,10 +179,10 @@ public class FileHelper {
             }
         }
         catch (IOException e){
-            System.err.println("Couldn't load files: " + e.getMessage());
+            System.err.println("\nCouldn't load files: " + e.getMessage());
         }
         catch (Exception e){
-            System.out.println("\nSomething went wrong when loading the files.");
+            System.out.println("\nThe fighter Pokemon file(s) has/have been tampered with.");
         }
 
         return loadedFighterPokemon;
@@ -201,7 +207,7 @@ public class FileHelper {
             Files.writeString(attackFightPath, allAttacksFight);
         }
         catch (IOException e){
-            System.err.println("Couldn't save files: " + e.getMessage());
+            System.err.println("\nCouldn't save files: " + e.getMessage());
         }
     }
 
@@ -225,7 +231,7 @@ public class FileHelper {
             System.out.println("\nYour Pokemon have been saved!");
         }
         catch (IOException e){
-            System.err.println("Couldn't save files: " + e.getMessage());
+            System.err.println("\nCouldn't save files: " + e.getMessage());
         }
     }
 
@@ -280,10 +286,10 @@ public class FileHelper {
             }
         }
         catch (IOException e){
-            System.err.println("Couldn't load files: " + e.getMessage());
+            System.err.println("\nCouldn't load files: " + e.getMessage());
         }
         catch (Exception e){
-            System.out.println("\nSomething went wrong when loading the files.");
+            System.out.println("\nThe saved Pokemon and/or saved attacks file(s) has/have been tambered with.");
         }
 
         return loadedPokemon;
