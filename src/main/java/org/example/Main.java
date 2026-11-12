@@ -219,7 +219,7 @@ public class Main {
                 fighterPokemon= (ArrayList<Pokemon>) loadedFighterPokemon;
                 playerHp=loadPlayerHp();
                 enemyHp=loadEnemyHp();
-                if (fighterPokemon.isEmpty()){
+                if (fighterPokemon.size() != 2 || playerHp.isEmpty() || enemyHp.isEmpty() || playerHp.size()!=enemyHp.size()){
                     System.out.println("\nThere are no statistics.");
                 }
                 else{
