@@ -267,12 +267,35 @@ public class Main {
                                 + ", accuracy: " + att.getAccuracy() + ", type: " + att.getType() + ")");
                     }
                     System.out.println();
-                    for (int i=1 ; i <= playerHp.size() ; i++){
-                        System.out.println("\nYour HP after round number " + i + ": " + playerHp.get(i-1));
+                    System.out.println("\nYour HP after round number 1: " + playerHp.getFirst());
+                    if (playerHp.size()==1){
+                        System.out.println(" ");
                     }
-                    System.out.println(" ");
-                    for (int i=1 ; i <= enemyHp.size() ; i++){
-                        System.out.println("\nComputer HP after round number " + i + ": " + enemyHp.get(i-1));
+                    else{
+                        for (int i=2 ; i <= playerHp.size() ; i++){
+                            if (playerHp.get(i-1)>playerHp.get(i-2)){
+                                System.out.println("\nYour remaining statistics can't be loaded because they are faulty.");
+                                break;
+                            }
+                            else{
+                                System.out.println("\nYour HP after round number " + i + ": " + playerHp.get(i-1));
+                            }
+                        }
+                    }
+                    System.out.println("\nComputer HP after round number 1: " + enemyHp.getFirst());
+                    if (enemyHp.size()==1){
+                        System.out.println(" ");
+                    }
+                    else{
+                        for (int i=2 ; i <= enemyHp.size() ; i++){
+                            if (enemyHp.get(i-1)>enemyHp.get(i-2)){
+                                System.out.println("\nThe remaining computer statistics can't be loaded because they are faulty.");
+                                break;
+                            }
+                            else{
+                                System.out.println("\nComputer HP after round number " + i + ": " + enemyHp.get(i-1));
+                            }
+                        }
                     }
                 }
             }
