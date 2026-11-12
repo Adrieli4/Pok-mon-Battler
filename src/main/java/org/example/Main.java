@@ -243,7 +243,9 @@ public class Main {
                 fighterPokemon= (ArrayList<Pokemon>) loadedFighterPokemon;
                 playerHp=loadPlayerHp();
                 enemyHp=loadEnemyHp();
-                if (fighterPokemon.size() != 2 || playerHp.isEmpty() || enemyHp.isEmpty() || playerHp.size()!=enemyHp.size()){
+                if ((fighterPokemon.size()) != 2 || (playerHp.isEmpty()) || (enemyHp.isEmpty()) || (playerHp.size()!=enemyHp.size()) ||
+                        (playerHp.getLast()==0 && enemyHp.getLast()==0) || (playerHp.getLast()!=0 && enemyHp.getLast()!=0) ||
+                        (playerHp.getFirst()>fighterPokemon.getFirst().getMaxHp()) || (enemyHp.getFirst()>fighterPokemon.getLast().getMaxHp())){
                     System.out.println("\nThere are no statistics.");
                 }
                 else{
