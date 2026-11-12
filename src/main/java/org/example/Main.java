@@ -11,8 +11,8 @@ public class Main {
     private static ArrayList<Pokemon> pokedex = new ArrayList<>();
     private static final ArrayList<Pokemon> pokedexComputer = new ArrayList<>();
     private static ArrayList<Pokemon> fighterPokemon=new ArrayList<>();
-    private static ArrayList<String> playerHp=new ArrayList<>();
-    private static ArrayList<String> enemyHp=new ArrayList<>();
+    private static ArrayList<Integer> playerHp=new ArrayList<>();
+    private static ArrayList<Integer> enemyHp=new ArrayList<>();
     private static ArrayList<Integer> numberOfWins=new ArrayList<>();
     private static ArrayList<Integer> numberOfLosses=new ArrayList<>();
 
@@ -134,11 +134,19 @@ public class Main {
                             System.out.println("\nYou missed!");
                         }
                         System.out.println("\nComputer HP: " + enemy.getCurrentHp());
-                        enemyHp.add(Integer.toString(enemy.getCurrentHp()));
+                        enemyHp.add(enemy.getCurrentHp());
                         if (enemy.isFainted()){
-                            playerHp.add(Integer.toString(player.getCurrentHp()));
-                            savePlayerHp(playerHp);
-                            saveEnemyHp(enemyHp);
+                            playerHp.add(player.getCurrentHp());
+                            ArrayList<String> playerHpStr=new ArrayList<>();
+                            ArrayList<String> enemyHpStr=new ArrayList<>();
+                            for (int i : playerHp){
+                                playerHpStr.add(String.valueOf(i));
+                            }
+                            for (int i : enemyHp){
+                                enemyHpStr.add(String.valueOf(i));
+                            }
+                            savePlayerHp(playerHpStr);
+                            saveEnemyHp(enemyHpStr);
                             break;
                         }
                         int secondProb=random.nextInt(1, 101);
@@ -149,7 +157,7 @@ public class Main {
                             System.out.println("\nYour opponent missed!");
                         }
                         System.out.println("\nYour HP: " + player.getCurrentHp());
-                        playerHp.add(Integer.toString(player.getCurrentHp()));
+                        playerHp.add(player.getCurrentHp());
                     }
                     else {
                         int probability= random.nextInt(1, 101);
@@ -160,11 +168,19 @@ public class Main {
                             System.out.println("\nYour opponent missed!");
                         }
                         System.out.println("\nYour HP: " + player.getCurrentHp());
-                        playerHp.add(Integer.toString(player.getCurrentHp()));
+                        playerHp.add(player.getCurrentHp());
                         if (player.isFainted()){
-                            enemyHp.add(Integer.toString(enemy.getCurrentHp()));
-                            savePlayerHp(playerHp);
-                            saveEnemyHp(enemyHp);
+                            enemyHp.add(enemy.getCurrentHp());
+                            ArrayList<String> playerHpStr=new ArrayList<>();
+                            ArrayList<String> enemyHpStr=new ArrayList<>();
+                            for (int i : playerHp){
+                                playerHpStr.add(String.valueOf(i));
+                            }
+                            for (int i : enemyHp){
+                                enemyHpStr.add(String.valueOf(i));
+                            }
+                            savePlayerHp(playerHpStr);
+                            saveEnemyHp(enemyHpStr);
                             break;
                         }
                         int secondProb=random.nextInt(1, 101);
@@ -175,11 +191,19 @@ public class Main {
                             System.out.println("\nYou missed!");
                         }
                         System.out.println("\nComputer HP: " + enemy.getCurrentHp());
-                        enemyHp.add(Integer.toString(enemy.getCurrentHp()));
+                        enemyHp.add(enemy.getCurrentHp());
                     }
                 }
-                savePlayerHp(playerHp);
-                saveEnemyHp(enemyHp);
+                ArrayList<String> playerHpStr=new ArrayList<>();
+                ArrayList<String> enemyHpStr=new ArrayList<>();
+                for (int i : playerHp){
+                    playerHpStr.add(String.valueOf(i));
+                }
+                for (int i : enemyHp){
+                    enemyHpStr.add(String.valueOf(i));
+                }
+                savePlayerHp(playerHpStr);
+                saveEnemyHp(enemyHpStr);
 
                 if (player.isFainted()){
                     System.out.println("\nYou lost! " + enemy.getName() + "'s HP is " + enemy.getCurrentHp() + ".");

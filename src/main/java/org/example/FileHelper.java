@@ -62,14 +62,14 @@ public class FileHelper {
         }
     }
 
-    public static ArrayList<String> loadEnemyHp(){
-        ArrayList<String> loadedEnemyHp=new ArrayList<>();
+    public static ArrayList<Integer> loadEnemyHp(){
+        ArrayList<Integer> loadedEnemyHp=new ArrayList<>();
         try{
             ArrayList<String> enemyHpLines= (ArrayList<String>) Files.readAllLines(enemyHpPath);
             for (String line : enemyHpLines){
                 if (line.isBlank()) continue;
                 String[] parts=line.split(",");
-                String currentHp=parts[0];
+                int currentHp=Integer.parseInt(parts[0]);
                 loadedEnemyHp.add(currentHp);
             }
         }
@@ -83,14 +83,14 @@ public class FileHelper {
         return loadedEnemyHp;
     }
 
-    public static ArrayList<String> loadPlayerHp(){
-        ArrayList<String> loadedPlayerHp=new ArrayList<>();
+    public static ArrayList<Integer> loadPlayerHp(){
+        ArrayList<Integer> loadedPlayerHp=new ArrayList<>();
         try{
             ArrayList<String> playerHpLines= (ArrayList<String>) Files.readAllLines(playerHpPath);
             for (String line : playerHpLines){
                 if (line.isBlank()) continue;
                 String[] parts=line.split(",");
-                String currentHp=parts[0];
+                int currentHp=Integer.parseInt(parts[0]);
                 loadedPlayerHp.add(currentHp);
             }
         }
