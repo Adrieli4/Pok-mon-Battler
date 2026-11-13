@@ -194,28 +194,28 @@ public class Main {
     private static void seedDataComputer() {
         pokedexComputer.clear();
 
-        Pokemon p1 = new Pokemon("Pidgey", Type.NORMAL, 40, 40);
+        Pokemon p1 = new Pokemon("Pidgey", Type.NORMAL, 100, 100);
         p1.getAttacks().add(new Attack("Headbutt", 70, 100, Type.NORMAL));
         p1.getAttacks().add(new Attack("Heat Wave", 95, 90, Type.FIRE));
 
         Pokemon p2 = new Pokemon("Jigglypuff", Type.NORMAL, 115, 115);
         p2.getAttacks().add(new Attack("Tackle", 40, 100, Type.NORMAL));
 
-        Pokemon p3 = new Pokemon("Vulpix", Type.FIRE, 38, 38);
+        Pokemon p3 = new Pokemon("Vulpix", Type.FIRE, 80, 80);
         p3.getAttacks().add(new Attack("Inferno", 100, 50, Type.FIRE));
         p3.getAttacks().add(new Attack("Fire Blast", 110, 85, Type.FIRE));
 
-        Pokemon p4 = new Pokemon("Raticate", Type.NORMAL, 55, 55);
+        Pokemon p4 = new Pokemon("Raticate", Type.NORMAL, 120, 120);
         p4.getAttacks().add(new Attack("Double-Edge", 120, 100, Type.NORMAL));
 
         Pokemon p5 = new Pokemon("Gloom", Type.GRASS, 60, 60);
         p5.getAttacks().add(new Attack("Mega Drain", 40, 100, Type.GRASS));
         p5.getAttacks().add(new Attack("Giga Drain", 75, 100, Type.GRASS));
 
-        Pokemon p6 = new Pokemon("Psyduck", Type.WATER, 50, 50);
+        Pokemon p6 = new Pokemon("Psyduck", Type.WATER, 110, 110);
         p6.getAttacks().add(new Attack("Aqua Tail", 90, 90, Type.WATER));
 
-        Pokemon p7 = new Pokemon("Persian", Type.NORMAL, 65, 65);
+        Pokemon p7 = new Pokemon("Persian", Type.NORMAL, 150, 150);
         p7.getAttacks().add(new Attack("Slash", 70, 100, Type.NORMAL));
 
         pokedexComputer.addAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7));
