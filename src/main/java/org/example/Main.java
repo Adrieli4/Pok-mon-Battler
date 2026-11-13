@@ -80,7 +80,8 @@ public class Main {
                 List<Pokemon> loadedPokemon=loadDataFromCSV();
                 pokedex= (ArrayList<Pokemon>) loadedPokemon;
                 if (pokedex.isEmpty()){
-                    System.out.println("\nNo data has been loaded. The pokedex is empty.");
+                    System.out.println("\nNo data has been loaded. Restoring pokedex to seed data...");
+                    seedData();
                 }
                 else{
                     System.out.println("\nThe data has been loaded.");
