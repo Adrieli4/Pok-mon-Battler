@@ -6,6 +6,17 @@ import java.util.Scanner;
 import static org.example.InputHelper.*;
 
 public class PokedexCRUD {
+    public static void showPokemon(Pokemon pokemon){
+        System.out.println("\nName: " + pokemon.getName() + " (" + pokemon.getType() + ")");
+        System.out.println(" - Max HP: " + pokemon.getMaxHp());
+        System.out.println(" - Current HP: " + pokemon.getCurrentHp());
+        System.out.println(" - Attacks:");
+        for (Attack att : pokemon.getAttacks()) {
+            System.out.println("  -  " + att.getName() + " (base damage: " + att.getBaseDamage()
+                    + ", accuracy: " + att.getAccuracy() + ", type: " + att.getType() + ")");
+        }
+    }
+
     public static void removeAttack(Scanner scanner, ArrayList<Pokemon> pokedex){
         pokedexNameChoice(pokedex);
         int num=readIntBetween(scanner, "\nTo choose a Pokemon, enter the corresponding number: ", 0, pokedex.size()-1);
