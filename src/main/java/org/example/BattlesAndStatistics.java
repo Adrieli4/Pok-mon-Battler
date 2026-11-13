@@ -134,16 +134,7 @@ public class BattlesAndStatistics {
                     enemyHp.add(enemy.getCurrentHp());
                     if (enemy.isFainted()){
                         playerHp.add(player.getCurrentHp());
-                        ArrayList<String> playerHpStr=new ArrayList<>();
-                        ArrayList<String> enemyHpStr=new ArrayList<>();
-                        for (int i : playerHp){
-                            playerHpStr.add(String.valueOf(i));
-                        }
-                        for (int i : enemyHp){
-                            enemyHpStr.add(String.valueOf(i));
-                        }
-                        savePlayerHp(playerHpStr);
-                        saveEnemyHp(enemyHpStr);
+                        saveHpAsStrings(playerHp, enemyHp);
                         break;
                     }
                     damageAttackEnemy.execute(enemy, player, random);
@@ -156,16 +147,7 @@ public class BattlesAndStatistics {
                     playerHp.add(player.getCurrentHp());
                     if (player.isFainted()){
                         enemyHp.add(enemy.getCurrentHp());
-                        ArrayList<String> playerHpStr=new ArrayList<>();
-                        ArrayList<String> enemyHpStr=new ArrayList<>();
-                        for (int i : playerHp){
-                            playerHpStr.add(String.valueOf(i));
-                        }
-                        for (int i : enemyHp){
-                            enemyHpStr.add(String.valueOf(i));
-                        }
-                        savePlayerHp(playerHpStr);
-                        saveEnemyHp(enemyHpStr);
+                        saveHpAsStrings(playerHp, enemyHp);
                         break;
                     }
                     damageAttackPlayer.execute(player, enemy, random);
@@ -173,16 +155,7 @@ public class BattlesAndStatistics {
                     enemyHp.add(enemy.getCurrentHp());
                 }
             }
-            ArrayList<String> playerHpString=new ArrayList<>();
-            ArrayList<String> enemyHpString=new ArrayList<>();
-            for (int i : playerHp){
-                playerHpString.add(String.valueOf(i));
-            }
-            for (int i : enemyHp){
-                enemyHpString.add(String.valueOf(i));
-            }
-            savePlayerHp(playerHpString);
-            saveEnemyHp(enemyHpString);
+            saveHpAsStrings(playerHp, enemyHp);
 
             if (player.isFainted()){
                 System.out.println("\nYou lost! " + enemy.getName() + "'s HP is " + enemy.getCurrentHp() + ".");
@@ -213,5 +186,18 @@ public class BattlesAndStatistics {
             saveLosses(numberOfLosses.getFirst());
             saveWins(numberOfWins.getFirst());
         }
+    }
+
+    private static void saveHpAsStrings(ArrayList<Integer> playerHp, ArrayList<Integer> enemyHp) {
+        ArrayList<String> playerHpString=new ArrayList<>();
+        ArrayList<String> enemyHpString=new ArrayList<>();
+        for (int i : playerHp){
+            playerHpString.add(String.valueOf(i));
+        }
+        for (int i : enemyHp){
+            enemyHpString.add(String.valueOf(i));
+        }
+        savePlayerHp(playerHpString);
+        saveEnemyHp(enemyHpString);
     }
 }
