@@ -127,13 +127,7 @@ public class Main {
                     DamageAttack damageAttackEnemy=new DamageAttack(enemyAttack.getName(), enemyAttack.getBaseDamage(), enemyAttack.getAccuracy(), enemyAttack.getType(), enemyAttack.getBaseDamage());
 
                     if (player.getCurrentHp() < enemy.getCurrentHp()){
-                        int probability=random.nextInt(1, 101);
-                        if (probability <= playerAttack.getAccuracy()){
-                            damageAttackPlayer.execute(player, enemy);
-                        }
-                        else{
-                            System.out.println("\nYou missed!");
-                        }
+                        damageAttackPlayer.execute(player, enemy, random);
                         System.out.println("\nComputer HP: " + enemy.getCurrentHp());
                         enemyHp.add(enemy.getCurrentHp());
                         if (enemy.isFainted()){
@@ -150,24 +144,12 @@ public class Main {
                             saveEnemyHp(enemyHpStr);
                             break;
                         }
-                        int secondProb=random.nextInt(1, 101);
-                        if (secondProb <= enemyAttack.getAccuracy()){
-                            damageAttackEnemy.execute(enemy, player);
-                        }
-                        else {
-                            System.out.println("\nYour opponent missed!");
-                        }
+                        damageAttackEnemy.execute(enemy, player, random);
                         System.out.println("\nYour HP: " + player.getCurrentHp());
                         playerHp.add(player.getCurrentHp());
                     }
                     else {
-                        int probability= random.nextInt(1, 101);
-                        if (probability <= enemyAttack.getAccuracy()){
-                            damageAttackEnemy.execute(enemy, player);
-                        }
-                        else{
-                            System.out.println("\nYour opponent missed!");
-                        }
+                        damageAttackEnemy.execute(enemy, player, random);
                         System.out.println("\nYour HP: " + player.getCurrentHp());
                         playerHp.add(player.getCurrentHp());
                         if (player.isFainted()){
@@ -184,27 +166,21 @@ public class Main {
                             saveEnemyHp(enemyHpStr);
                             break;
                         }
-                        int secondProb=random.nextInt(1, 101);
-                        if (secondProb <= playerAttack.getAccuracy()){
-                            damageAttackPlayer.execute(player, enemy);
-                        }
-                        else {
-                            System.out.println("\nYou missed!");
-                        }
+                        damageAttackPlayer.execute(player, enemy, random);
                         System.out.println("\nComputer HP: " + enemy.getCurrentHp());
                         enemyHp.add(enemy.getCurrentHp());
                     }
                 }
-                ArrayList<String> playerHpStr=new ArrayList<>();
-                ArrayList<String> enemyHpStr=new ArrayList<>();
+                ArrayList<String> playerHpString=new ArrayList<>();
+                ArrayList<String> enemyHpString=new ArrayList<>();
                 for (int i : playerHp){
-                    playerHpStr.add(String.valueOf(i));
+                    playerHpString.add(String.valueOf(i));
                 }
                 for (int i : enemyHp){
-                    enemyHpStr.add(String.valueOf(i));
+                    enemyHpString.add(String.valueOf(i));
                 }
-                savePlayerHp(playerHpStr);
-                saveEnemyHp(enemyHpStr);
+                savePlayerHp(playerHpString);
+                saveEnemyHp(enemyHpString);
 
                 if (player.isFainted()){
                     System.out.println("\nYou lost! " + enemy.getName() + "'s HP is " + enemy.getCurrentHp() + ".");
