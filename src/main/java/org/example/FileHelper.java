@@ -129,52 +129,7 @@ public class FileHelper {
     public static List<Pokemon> loadFightDataPokemonFromCSV(){
         List<Pokemon> loadedFighterPokemon=new ArrayList<>();
         try {
-            List<String> pokemonFighterLines=Files.readAllLines(pokemonFightPath);
-            for (String line : pokemonFighterLines){
-                if (line.isBlank()) continue;
-                String[] parts=line.split(",");
-                String name=parts[0];
-                Type type= Type.valueOf(parts[1]);
-                int maxHp= Integer.parseInt(parts[2]);
-                int currentHp= Integer.parseInt(parts[3]);
-
-                Pokemon pok = new Pokemon(name, type, maxHp, currentHp);
-                loadedFighterPokemon.add(pok);
-            }
-
-            List<String> attackFighterLines=Files.readAllLines(attackFightPath);
-            for (String line : attackFighterLines){
-                if (line.isBlank()) continue;
-                String[] parts=line.split(",");
-                String name=parts[0];
-                Type type=Type.valueOf(parts[1]);
-                int baseDamage=Integer.parseInt(parts[2]);
-                int accuracy=Integer.parseInt(parts[3]);
-                String belongsToPokemon=parts[4];
-
-                Attack att = new Attack(name, baseDamage, accuracy, type);
-
-                for (Pokemon pok : loadedFighterPokemon){
-                    if (pok.getName().equalsIgnoreCase(belongsToPokemon)){
-                        pok.getAttacks().add(att);
-                        break;
-                    }
-                }
-            }
-
-            loadedFighterPokemon.removeIf(pokemon -> pokemon.getName() == null || pokemon.getName().isBlank() ||
-                    pokemon.getMaxHp() < 1 || pokemon.getMaxHp() > 255 || pokemon.getCurrentHp() < 0 ||
-                    pokemon.getCurrentHp() > pokemon.getMaxHp() || pokemon.getAttacks().isEmpty() ||
-                    pokemon.getAttacks().size() > 4);
-
-            for (Pokemon pokemon : loadedFighterPokemon){
-                for (Attack attack : pokemon.getAttacks()){
-                    if (attack.getName()==null || attack.getName().isBlank() || attack.getBaseDamage() < 1 ||
-                            attack.getBaseDamage() > 250 || attack.getAccuracy() < 30 || attack.getAccuracy() > 100){
-                        loadedFighterPokemon.remove(pokemon);
-                    }
-                }
-            }
+            loadPokemonData(loadedFighterPokemon, pokemonFightPath, attackFightPath);
         }
         catch (IOException e){
             System.err.println("\nCouldn't load files: " + e.getMessage());
@@ -236,52 +191,7 @@ public class FileHelper {
     public static List<Pokemon> loadDataFromCSV(){
         List<Pokemon> loadedPokemon=new ArrayList<>();
         try {
-            List<String> pokemonLines=Files.readAllLines(pokemonPath);
-            for (String line : pokemonLines){
-                if (line.isBlank()) continue;
-                String[] parts=line.split(",");
-                String name=parts[0];
-                Type type= Type.valueOf(parts[1]);
-                int maxHp= Integer.parseInt(parts[2]);
-                int currentHp= Integer.parseInt(parts[3]);
-
-                Pokemon pok = new Pokemon(name, type, maxHp, currentHp);
-                loadedPokemon.add(pok);
-            }
-
-            List<String> attackLines=Files.readAllLines(attackPath);
-            for (String line : attackLines){
-                if (line.isBlank()) continue;
-                String[] parts=line.split(",");
-                String name=parts[0];
-                Type type=Type.valueOf(parts[1]);
-                int baseDamage=Integer.parseInt(parts[2]);
-                int accuracy=Integer.parseInt(parts[3]);
-                String belongsToPokemon=parts[4];
-
-                Attack att = new Attack(name, baseDamage, accuracy, type);
-
-                for (Pokemon pok : loadedPokemon){
-                    if (pok.getName().equalsIgnoreCase(belongsToPokemon)){
-                        pok.getAttacks().add(att);
-                        break;
-                    }
-                }
-            }
-
-            loadedPokemon.removeIf(pokemon -> pokemon.getName() == null || pokemon.getName().isBlank() ||
-                    pokemon.getMaxHp() < 1 || pokemon.getMaxHp() > 255 || pokemon.getCurrentHp() < 0 ||
-                    pokemon.getCurrentHp() > pokemon.getMaxHp() || pokemon.getAttacks().isEmpty() ||
-                    pokemon.getAttacks().size() > 4);
-
-            for (Pokemon pokemon : loadedPokemon){
-                for (Attack attack : pokemon.getAttacks()){
-                    if (attack.getName()==null || attack.getName().isBlank() || attack.getBaseDamage() < 1 ||
-                            attack.getBaseDamage() > 250 || attack.getAccuracy() < 30 || attack.getAccuracy() > 100){
-                        loadedPokemon.remove(pokemon);
-                    }
-                }
-            }
+            loadPokemonData(loadedPokemon, pokemonPath, attackPath);
         }
         catch (IOException e){
             System.err.println("\nCouldn't load files: " + e.getMessage());
@@ -291,5 +201,54 @@ public class FileHelper {
         }
 
         return loadedPokemon;
+    }
+
+    private static void loadPokemonData(List<Pokemon> loadedPokemon, Path pokemonPath, Path attackPath) throws IOException {
+        List<String> pokemonLines= Files.readAllLines(pokemonPath);
+        for (String line : pokemonLines){
+            if (line.isBlank()) continue;
+            String[] parts=line.split(",");
+            String name=parts[0];
+            Type type= Type.valueOf(parts[1]);
+            int maxHp= Integer.parseInt(parts[2]);
+            int currentHp= Integer.parseInt(parts[3]);
+
+            Pokemon pok = new Pokemon(name, type, maxHp, currentHp);
+            loadedPokemon.add(pok);
+        }
+
+        List<String> attackLines=Files.readAllLines(attackPath);
+        for (String line : attackLines){
+            if (line.isBlank()) continue;
+            String[] parts=line.split(",");
+            String name=parts[0];
+            Type type=Type.valueOf(parts[1]);
+            int baseDamage=Integer.parseInt(parts[2]);
+            int accuracy=Integer.parseInt(parts[3]);
+            String belongsToPokemon=parts[4];
+
+            Attack att = new Attack(name, baseDamage, accuracy, type);
+
+            for (Pokemon pok : loadedPokemon){
+                if (pok.getName().equalsIgnoreCase(belongsToPokemon)){
+                    pok.getAttacks().add(att);
+                    break;
+                }
+            }
+        }
+
+        loadedPokemon.removeIf(pokemon -> pokemon.getName() == null || pokemon.getName().isBlank() ||
+                pokemon.getMaxHp() < 1 || pokemon.getMaxHp() > 255 || pokemon.getCurrentHp() < 0 ||
+                pokemon.getCurrentHp() > pokemon.getMaxHp() || pokemon.getAttacks().isEmpty() ||
+                pokemon.getAttacks().size() > 4);
+
+        for (Pokemon pokemon : loadedPokemon){
+            for (Attack attack : pokemon.getAttacks()){
+                if (attack.getName()==null || attack.getName().isBlank() || attack.getBaseDamage() < 1 ||
+                        attack.getBaseDamage() > 250 || attack.getAccuracy() < 30 || attack.getAccuracy() > 100){
+                    loadedPokemon.remove(pokemon);
+                }
+            }
+        }
     }
 }
