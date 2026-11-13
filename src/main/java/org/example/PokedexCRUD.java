@@ -132,14 +132,7 @@ public class PokedexCRUD {
 
     public static void showPokedex(ArrayList<Pokemon> pokedex){
         for (Pokemon pok : pokedex) {
-            System.out.println("\nName: " + pok.getName() + " (" + pok.getType() + ")");
-            System.out.println(" - Max HP: " + pok.getMaxHp());
-            System.out.println(" - Current HP: " + pok.getCurrentHp());
-            System.out.println(" - Attacks:");
-            for (Attack att : pok.getAttacks()) {
-                System.out.println("  -  " + att.getName() + " (base damage: " + att.getBaseDamage()
-                        + ", accuracy: " + att.getAccuracy() + ", type: " + att.getType() + ")");
-            }
+            showPokemon(pok);
             System.out.println();
         }
     }
