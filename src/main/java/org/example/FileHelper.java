@@ -65,13 +65,7 @@ public class FileHelper {
     public static ArrayList<Integer> loadEnemyHp(){
         ArrayList<Integer> loadedEnemyHp=new ArrayList<>();
         try{
-            ArrayList<String> enemyHpLines= (ArrayList<String>) Files.readAllLines(enemyHpPath);
-            for (String line : enemyHpLines){
-                if (line.isBlank()) continue;
-                String[] parts=line.split(",");
-                int currentHp=Integer.parseInt(parts[0]);
-                loadedEnemyHp.add(currentHp);
-            }
+            loadHpAsInts(loadedEnemyHp, enemyHpPath);
         }
         catch (IOException e){
             System.err.println("\nCouldn't load files: " + e.getMessage());
@@ -83,16 +77,20 @@ public class FileHelper {
         return loadedEnemyHp;
     }
 
+    private static void loadHpAsInts(ArrayList<Integer> loadedPokemonHp, Path pokemonHpPath) throws IOException {
+        ArrayList<String> pokemonHpLines= (ArrayList<String>) Files.readAllLines(pokemonHpPath);
+        for (String line : pokemonHpLines){
+            if (line.isBlank()) continue;
+            String[] parts=line.split(",");
+            int currentHp=Integer.parseInt(parts[0]);
+            loadedPokemonHp.add(currentHp);
+        }
+    }
+
     public static ArrayList<Integer> loadPlayerHp(){
         ArrayList<Integer> loadedPlayerHp=new ArrayList<>();
         try{
-            ArrayList<String> playerHpLines= (ArrayList<String>) Files.readAllLines(playerHpPath);
-            for (String line : playerHpLines){
-                if (line.isBlank()) continue;
-                String[] parts=line.split(",");
-                int currentHp=Integer.parseInt(parts[0]);
-                loadedPlayerHp.add(currentHp);
-            }
+            loadHpAsInts(loadedPlayerHp, playerHpPath);
         }
         catch (IOException e){
             System.err.println("\nCouldn't load files: " + e.getMessage());
