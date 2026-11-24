@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.repository.PokemonDao;
+import org.example.repository.PokemonDaoJdbc;
+
 import java.util.*;
 
 import static org.example.BattlesAndStatistics.*;
@@ -15,6 +18,7 @@ public class Main {
     private static final ArrayList<Integer> enemyHp=new ArrayList<>();
     private static final ArrayList<Integer> numberOfWins=new ArrayList<>();
     private static final ArrayList<Integer> numberOfLosses=new ArrayList<>();
+    private static final PokemonDao pokemonRepository=new PokemonDaoJdbc();
 
     public static void main(String[] args) {
 
@@ -48,7 +52,7 @@ public class Main {
                     ArrayList<Pokemon> allPokemonToSave = new ArrayList<>(pokedex);
 
                     saveDataToCSV(allPokemonToSave);
-
+                    pokemonRepository.saveAllPokemon(allPokemonToSave);
                 }
                 System.out.println("\nExiting program...");
                 break;
